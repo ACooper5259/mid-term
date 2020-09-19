@@ -7,6 +7,7 @@
 
 const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcrypt');
 
 const checkAllUserParamsExist = (user) => {
   if (user.username && user.name && user.password && user.organization_id) {
@@ -15,12 +16,30 @@ const checkAllUserParamsExist = (user) => {
   return false;
 }
 
+const checkUserExists = (user, db) => {
+  const queryString =
+    `SELECT username
+   FROM users
+   WHERE username = $1`;
+  const queryParams = [user.username];
+
+  return db.query(queryString, queryParams)
+    .then(data => {
+      const matchingUser = data.rows;
+      if (matchingUser.length > 0) {
+        return true;
+      }
+      return false;
+    })
+}
+
 const createNewUser = (newUser, db) => {
   const signupQuery = `
   INSERT INTO users( username, name, password, organization_id)
   VALUES ($1, $2, $3, $4);
   `
-  const signupParams = [newUser.username, newUser.name, newUser.password, newUser.organization_id];
+  const hashedPassword = bcrypt.hashSync(newUser.password, 5);
+  const signupParams = [newUser.username, newUser.name, hashedPassword, newUser.organization_id];
   return db.query(signupQuery, signupParams).then(data => {
     return `SUCCESFULLY CREATED USER ${newUser.username}`;
   })
@@ -48,29 +67,46 @@ module.exports = (db) => {
         .json({ error: "Request is missing a field (name, username, password, organization_id)" });
     }
 
-    const queryString =
-      `SELECT username
-       FROM users
-       WHERE username = $1`;
-    const queryParams = [newUser.username];
+    checkUserExists(newUser, db).then(userExists => {
+      if (userExists) {
+        return res
+          .status(500)
+          .json({ error: "Username already exists" });
+      }
 
-    db.query(queryString, queryParams)
-      .then(data => {
-        const matchingUser = data.rows;
-        if (matchingUser.length > 0) {
-          return res
-            .status(500)
-            .json({ error: "Username already exists" });
-        }
-
-        createNewUser(newUser, db).then(message => {
-          return res.json(message);
-        }).catch(err => {
-          return res
+      createNewUser(newUser, db).then(message => {
+        return res.json(message);
+      }).catch(err => {
+        return res
           .status(500)
           .json({ error: err.message });
-        });
-      })
+      });
+    })
+
+
+    // const queryString =
+    //   `SELECT username
+    //    FROM users
+    //    WHERE username = $1`;
+    // const queryParams = [newUser.username];
+
+    // db.query(queryString, queryParams)
+    //   .then(data => {
+    //     const matchingUser = data.rows;
+    //     if (matchingUser.length > 0) {
+    //       return res
+    //         .status(500)
+    //         .json({ error: "Username already exists" });
+    //     }
+
+    //     createNewUser(newUser, db).then(message => {
+    //       return res.json(message);
+    //     }).catch(err => {
+    //       return res
+    //         .status(500)
+    //         .json({ error: err.message });
+    //     });
+    //   })
   });
 
   router.post("/login", (req, res) => {
