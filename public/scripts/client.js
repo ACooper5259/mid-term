@@ -1,4 +1,6 @@
 $(document).ready(function() {
+  console.log('test')
+
   const workCheck = () => {
     $.ajax({
       url: '/',
