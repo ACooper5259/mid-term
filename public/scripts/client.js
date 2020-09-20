@@ -15,9 +15,12 @@ $(document).ready(function() {
 
   workCheck();
 
-  $("#my_form").on('submit',function(e) {
+  console.log('before sumbit');
+  $("#generate-password").on('submit',function(e) {
+    console.log('inside the function')
     console.log(e);
     e.preventDefault();
   } )
 
+  console.log('after submit')
 });
