@@ -17,13 +17,13 @@ const checkAllUserParamsExist = (user) => {
 }
 
 const checkUserExists = (user, db) => {
-  const queryString =
+  const query =
     `SELECT username
    FROM users
    WHERE username = $1`;
   const queryParams = [user.username];
 
-  return db.query(queryString, queryParams)
+  return db.query(query, queryParams)
     .then(data => {
       const matchingUser = data.rows;
       if (matchingUser.length > 0) {
@@ -34,15 +34,40 @@ const checkUserExists = (user, db) => {
 }
 
 const createNewUser = (newUser, db) => {
-  const signupQuery = `
+  const query = `
   INSERT INTO users( username, name, password, organization_id)
   VALUES ($1, $2, $3, $4);
   `
   const hashedPassword = bcrypt.hashSync(newUser.password, 5);
-  const signupParams = [newUser.username, newUser.name, hashedPassword, newUser.organization_id];
-  return db.query(signupQuery, signupParams).then(data => {
+
+  const queryParams = [newUser.username, newUser.name, hashedPassword, newUser.organization_id];
+  return db.query(query, queryParams).then(data => {
     return `SUCCESFULLY CREATED USER ${newUser.username}`;
   })
+}
+
+const verifyPassword = (username, password, db) => {
+  const query = `
+  SELECT * FROM users
+  WHERE username = $1;
+`
+  queryParams = [username];
+
+  return db.query(query, queryParams)
+    .then(data => {
+      const user = data.rows[0];
+      const hashedPassword = user.password;
+
+      if (bcrypt.compareSync(password, hashedPassword)) {
+        return user.id;
+      } else {
+        return null;
+      }
+    })
+    .catch(err => {
+      console.log(err)
+    });
+
 }
 
 module.exports = (db) => {
@@ -61,6 +86,7 @@ module.exports = (db) => {
 
   router.post("/", (req, res) => {
     const newUser = req.body;
+
     if (!checkAllUserParamsExist(newUser)) {
       return res
         .status(500)
@@ -82,36 +108,29 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
     })
-
-
-    // const queryString =
-    //   `SELECT username
-    //    FROM users
-    //    WHERE username = $1`;
-    // const queryParams = [newUser.username];
-
-    // db.query(queryString, queryParams)
-    //   .then(data => {
-    //     const matchingUser = data.rows;
-    //     if (matchingUser.length > 0) {
-    //       return res
-    //         .status(500)
-    //         .json({ error: "Username already exists" });
-    //     }
-
-    //     createNewUser(newUser, db).then(message => {
-    //       return res.json(message);
-    //     }).catch(err => {
-    //       return res
-    //         .status(500)
-    //         .json({ error: err.message });
-    //     });
-    //   })
   });
 
   router.post("/login", (req, res) => {
-    console.log("login ROUTE WORKS")
-    console.log(req.body)
+    const user = req.body;
+    checkUserExists(user, db).then(userExists => {
+      if (userExists) {
+        verifyPassword(user.username, user.password, db).then (userID => {
+          if(userID){
+            console.log("LOGGED IN")
+            console.log(userID)
+            req.session.userID = userID;
+            return res.json({message: "Logged In!"});
+          } else{
+            console.log("Wrong Password")
+            return res.json({message: "Invalid credentials"});
+          }
+        })
+      } else {
+        return res
+          .status(500)
+          .json({ error: "Invalid credentials" });
+      }
+    });
   });
   return router;
 };
