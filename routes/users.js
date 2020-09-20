@@ -10,7 +10,7 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 
 const checkAllUserParamsExist = (user) => {
-  if (user.username && user.name && user.password && user.organization_id) {
+  if (user.username && user.name && user.password) {
     return true;
   }
   return false;
@@ -35,12 +35,12 @@ const checkUserExists = (user, db) => {
 
 const createNewUser = (newUser, db) => {
   const query = `
-  INSERT INTO users( username, name, password, organization_id)
+  INSERT INTO users( username, name, password, organization_name)
   VALUES ($1, $2, $3, $4);
   `
   const hashedPassword = bcrypt.hashSync(newUser.password, 5);
 
-  const queryParams = [newUser.username, newUser.name, hashedPassword, newUser.organization_id];
+  const queryParams = [newUser.username, newUser.name, hashedPassword, newUser.organization_name];
   return db.query(query, queryParams).then(data => {
     return `SUCCESFULLY CREATED USER ${newUser.username}`;
   })
@@ -90,7 +90,7 @@ module.exports = (db) => {
     if (!checkAllUserParamsExist(newUser)) {
       return res
         .status(500)
-        .json({ error: "Request is missing a field (name, username, password, organization_id)" });
+        .json({ error: "Request is missing a field (name, username, password, organization_name)" });
     }
 
     checkUserExists(newUser, db).then(userExists => {
