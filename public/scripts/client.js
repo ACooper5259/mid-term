@@ -34,4 +34,57 @@ $(document).ready(function() {
     $(".special-characters").prop("checked", false);
   } )
 
+// ////////////// DISPLAY WEBSITES \\\\\\\\\\\\\\\ \\
+
+// Display Webiste Function
+const displayWebsites = function (websites) {
+  for (const website of websites) {
+    const item_created = createWebsiteElement(website);
+    $('#websites-display').append(item_created);
+  }
+}
+
+// escape function
+
+// Create Website Element
+const createWebsiteElement = function (website) {
+  const website =  `
+  <div id="websites-display" class="col-lg-6">
+    ${website.url}
+    <div class="row">
+      <div class="col-lg-3">
+        Login id:
+      </div>
+      <div class="col-lg-3">
+        ${website.loginName}
+      </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-3">
+          Password:
+        </div>
+        <div class="col-lg-3">
+        ${website.password}
+        </div>
+      </div>
+    <div class="row">
+      <div class="col-lg-3">
+        Category:
+      </div>
+      <div class="col-lg-3">
+      ${website.category_id}
+      </div>
+    </div>
+  </div>`
+}
+
+
+// GET request for websites
+const loadWebsites = () => {
+  $.get('/websites', (websites) => {
+    displayWebsites(websites);
+  });
+};
+loadWebsites()
+
 });
