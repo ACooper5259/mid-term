@@ -32,6 +32,26 @@
     <main>
       <div id="hero"><img src="./assets/1397.jpg" alt=""></div>
 
+      <form id='generate-password'>
+        <div class="form-check form-check-inline">
+        <input type="number" class='length' name='length' placeholder ="length of password">
+        <input type='checkbox' class='number' name='number'>
+        <label for=number> Need number? </label>
+        <input type='checkbox' class='lowercase' name='lowercase'>
+        <label for=lowercase> Need lowercase? </label>
+        <input type='checkbox' class='uppercase' name='uppercase'>
+        <label for=uppercase> Need uppercase? </label>
+        <input type='checkbox' class='special-characters' name='special-characters'>
+        <label for=special-characters> Need Special Characters? </label>
+        </div>
+        <button type="submit"> New Password! </button>
+        <br>
+        <br>
+        <h5>You're new password is: </h5>
+        <output name="new-password" class="password"></output>
+      </form>
+
+
 
 
 
