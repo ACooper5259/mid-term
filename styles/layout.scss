@@ -1,10 +1,17 @@
 // See: https://sass-lang.com/
+$primary-color: black;
+$primary-blue: #004578;
+$primary-red: #da2320;
+$headings-font: 'Poppins', sans-serif;
+$text-font: 'Open Sans', sans-serif;
+
 
 body {
   background-color: #EEE;
 
-  h1 {
-    color: #244751;
+  h4 {
+    color: $primary-red;
+    font-family: $headings-font;
   }
 }
 
@@ -41,20 +48,26 @@ header {
   font-size: 16px;
   cursor: pointer;
   display: inline-block;
-  color: #da2320;
+  color: $primary-red;
 }
 
 .nav_button:hover {
-  background-color: #da2320;
+  background-color: $primary-red;
   color: #ffffff;
 }
 
 #login {
   font-weight: 600;
-  /* text-align: center; */
   margin-top: 30px;
 }
 
-.btn-danger:hover{
-  text-align: center;
+
+
+// Generate password form
+#generate-password {
+  padding-left: 25px;
+  color: $primary-blue;
+  font-family: $text-font;
 }
+
+
