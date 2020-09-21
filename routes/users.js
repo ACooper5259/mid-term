@@ -11,8 +11,7 @@ const bcrypt = require('bcrypt');
 const cookieSession = require('cookie-session');
 
 const checkAllUserParamsExist = (user) => {
-  console.log(user)
-  if (user.name && user.password && user.email) {
+  if (user.username && user.password && user.email) {
     return true;
   }
   return false;
@@ -24,7 +23,6 @@ const checkUserExists = (user, db) => {
    FROM users
    WHERE email = $1`;
   const queryParams = [user.email];
-
   return db.query(query, queryParams)
     .then(data => {
       const matchingUser = data.rows;
@@ -37,18 +35,72 @@ const checkUserExists = (user, db) => {
 
 
 
+
 const createNewUser = (newUser, db) => {
   const query = `
-  INSERT INTO users( email, name, password, organization_name)
+  INSERT INTO users( email, username, password, organization_id)
   VALUES ($1, $2, $3, $4);
   `
   const hashedPassword = bcrypt.hashSync(newUser.password, 5);
+  const orgName = newUser.organization_name;
 
-  const queryParams = [newUser.email, newUser.name, hashedPassword, newUser.organization_name];
-  return db.query(query, queryParams).then(data => {
-    return `SUCCESFULLY CREATED USER ${newUser.name}`;
+  return getOrganization(orgName, db).then(orgID => {
+    if (orgID) {
+      const queryParams = [newUser.email, newUser.username, hashedPassword, orgID];
+      return db.query(query, queryParams).then(data => {
+        return `SUCCESFULLY CREATED USER ${newUser.username}`;
+      })
+    } else {
+      createOrganization(orgName, db).then(data => {
+        getOrganization(orgName, db).then(orgID => {
+          console.log(orgID)
+          const queryParams = [newUser.email, newUser.username, hashedPassword, orgID];
+          return db.query(query, queryParams).then(data => {
+            return `SUCCESFULLY CREATED USER ${newUser.username}`;
+          })
+        })
+      }
+      )
+    }
+  }).catch(err => {
+    console.log(err)
   })
+  //DB REQUEST FOR ORG_ID IF NOT MAKE ONE//////////////////////////////
+  ///////////////////////////////
+
 }
+
+const getOrganization = (organizationName, db) => {
+  const query =
+    `SELECT *
+   FROM organizations
+   WHERE name = $1`;
+  const queryParams = [organizationName];
+  return db.query(query, queryParams)
+    .then(data => {
+      console.log(data.rows.length, "TEST")
+      if (data.rows.length > 0) {
+        console.log("YES")
+        return data.rows[0].id;
+      }
+      return null;
+    }).catch(err => {
+      console.log(err)
+    })
+}
+
+
+const createOrganization = (organizationName, db) => {
+  const query =
+    `
+    INSERT INTO organizations(name)
+    VALUES ($1);
+    `;
+  const queryParams = [organizationName];
+  return db.query(query, queryParams);
+}
+
+
 
 const verifyPassword = (email, password, db) => {
   const query = `
@@ -94,19 +146,20 @@ module.exports = (db) => {
     if (!checkAllUserParamsExist(newUser)) {
       return res
         .status(500)
-        .json({ error: "Request is missing a field (name, name, password, organization_name)" });
+        .json({ error: "Request is missing a field (name, email, password, organization_name)" });
     }
 
     checkUserExists(newUser, db).then(userExists => {
       if (userExists) {
         return res
           .status(500)
-          .json({ error: "name already exists" });
+          .json({ error: "email already exists" });
       }
-
       createNewUser(newUser, db).then(message => {
+        console.log(message, "SUCCESS NEW USER")
         return res.json(message);
       }).catch(err => {
+        console.log(message, "FAIL NEW USER")
         return res
           .status(500)
           .json({ error: err.message });
@@ -119,15 +172,15 @@ module.exports = (db) => {
     console.log(user)
     checkUserExists(user, db).then(userExists => {
       if (userExists) {
-        verifyPassword(user.email, user.password, db).then (userID => {
-          if(userID){
+        verifyPassword(user.email, user.password, db).then(userID => {
+          if (userID) {
             console.log("LOGGED IN")
             console.log(userID)
             req.session.userID = userID;
-            return res.json({message: "Logged In!"});
-          } else{
+            return res.json({ message: "Logged In!" });
+          } else {
             console.log("Wrong Password")
-            return res.json({message: "Invalid credentials"});
+            return res.json({ message: "Invalid credentials" });
           }
         })
       } else {
@@ -140,17 +193,17 @@ module.exports = (db) => {
   router.post('/logout', (req, res) => {
     req.session = null;
     return res
-    .json({ error: "Succesfully logged out" });
+      .json({ error: "Succesfully logged out" });
   })
 
   router.post('/password', (req, res) => {
-    if(!req.session.userID){
+    if (!req.session.userID) {
       return res
-      .json({ error: "You must be logged in to edit your account password"});
+        .json({ error: "You must be logged in to edit your account password" });
     }
-    if(!req.body.password){
+    if (!req.body.password) {
       return res
-      .json({ error: "No password provided in the request body"});
+        .json({ error: "No password provided in the request body" });
     }
 
     const query = `
@@ -163,9 +216,10 @@ module.exports = (db) => {
 
     return db.query(query, queryParams).then(data => {
       console.log("SUCCESS")
-      return res.json({message: `SUCCESFULLY UPDATED PASSWORD for user ${req.session.userID}` })
+      return res.json({ message: `SUCCESFULLY UPDATED PASSWORD for user ${req.session.userID}` })
     }).catch(err => {
-      return res.json({error: err })
-  })})
+      return res.json({ error: err })
+    })
+  })
   return router;
 };
