@@ -12,10 +12,15 @@
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/nav.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/main.css" type="text/css" />
+    <!--link rel="stylesheet" href="/styles/nav.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/main.css" type="text/css" /-->
     <!-- Add Bootstrap meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+
+    <!--script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script-->
+    <!-- script type="text/javascript" src="/scripts/app.js"></script -->
 
   </head>
 
@@ -30,7 +35,7 @@
     </header>
 
     <main>
-      <div id="hero"><img src="./assets/1397.jpg" alt=""></div>
+      <!--div id="hero"><img src="./assets/1397.jpg" alt=""></div>
 
       <div id="login" class="container">
         <div class="row">
@@ -84,42 +89,30 @@
 
               <button type="submit" class="btn btn-danger">Submit</button>
             </form>
-          </div>
+          </div-->
           <form id='generate-password'>
-            <input type="number" id='length' name='length'>
-            <input type='checkbox' id='number' name='number'>
+            <input type="number" class='length' name='length'>
+            <input type='checkbox' class='number' name='number'>
             <label for=number> Need number? </label>
-            <input type='checkbox' id='lowercase' name='lowercase'>
+            <input type='checkbox' class='lowercase' name='lowercase'>
             <label for=lowercase> Need lowercase? </label>
-            <input type='checkbox' id='uppercase' name='uppercase'>
+            <input type='checkbox' class='uppercase' name='uppercase'>
             <label for=uppercase> Need uppercase? </label>
-            <button type="submit" class="password-generator"> New Password! </button>
+            <input type='checkbox' class='special-characters' name='special-characters'>
+            <label for=special-characters> Need Special Characters? </label>
+            <button type="submit"> New Password! </button>
             <br>
             <br>
-            <output name="new-password" class="password">result</output>
+            <h5>You're new password is: </h5>
+            <output name="new-password" class="password"></output>
           </form>
 
+          <script type="text/javascript" src="/scripts/helper.js"></script>
+          <script type="text/javascript" src="/scripts/client.js"></script>
     </main>
+    </body>
     <footer>
       <div class="row">
         <div class="col-lg-12"></div>
-
-
     </footer>
-    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-    <script type="text/javascript" src="/scripts/app.js"></script>
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-
-    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-    <script type="text/javascript" src="/scripts/app.js"></script>
-
-
-
-  <body>
-    <h1>Hello World!</h1>
-
-
-    <script type="text/javascript" src="/scripts/client.js"></script>
-  </body>
 </html>
