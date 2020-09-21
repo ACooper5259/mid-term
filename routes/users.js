@@ -132,5 +132,35 @@ module.exports = (db) => {
       }
     });
   });
+  router.post('/logout', (req, res) => {
+    req.session = null;
+    return res
+    .json({ error: "Succesfully logged out" });
+  })
+
+  router.post('/password', (req, res) => {
+    if(!req.session.userID){
+      return res
+      .json({ error: "You must be logged in to edit your account password"});
+    }
+    if(!req.body.password){
+      return res
+      .json({ error: "No password provided in the request body"});
+    }
+
+    const query = `
+    UPDATE users
+    SET password = $1
+    WHERE id = $2;
+    `
+    const hashedPassword = bcrypt.hashSync(req.body.password, 5);
+    const queryParams = [hashedPassword, req.session.userID];
+
+    return db.query(query, queryParams).then(data => {
+      console.log("SUCCESS")
+      return res.json({message: `SUCCESFULLY UPDATED PASSWORD for user ${req.session.userID}` })
+    }).catch(err => {
+      return res.json({error: err })
+  })})
   return router;
 };
