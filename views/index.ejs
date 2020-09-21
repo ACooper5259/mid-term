@@ -40,26 +40,26 @@
           <div class="col-lg-1"></div>
 
           <div class="col-lg-4">
-            <form>
+            <form action="/user" method="POST">
               <h4> Register Here</h4>
               <div class="form-group">
                 <label for="email">Name:</label>
-                <input type="text" class="form-control" placeholder="Enter name" id="name">
+                <input type="text" class="form-control" placeholder="Enter name" id="name" name="username">
               </div>
 
               <div class="form-group">
                 <label for="email">Email address:</label>
-                <input type="email" class="form-control" placeholder="Enter email" id="email">
+                <input type="email" class="form-control" placeholder="Enter email" id="email" name="email">
               </div>
 
               <div class="form-group">
                 <label for="pwd">Password:</label>
-                <input type="password" class="form-control" placeholder="Enter password" id="pwd">
+                <input type="password" class="form-control" placeholder="Enter password" id="pwd" name="password">
               </div>
 
               <div class="form-group">
                 <label for="email">Company:</label>
-                <input type="text" class="form-control" placeholder="Enter company name" id="company">
+                <input type="text" class="form-control" placeholder="Enter company name" id="company" name="organization_name">
               </div>
 
               <button type="submit" class="btn btn-danger">Submit</button>
@@ -71,17 +71,17 @@
           <div class="col-lg-1"></div>
 
           <div class="col-lg-4">
-            <form>
+            <form action="/user/login" method="POST">
               <h4> Login Here</h4>
 
               <div class="form-group">
                 <label for="email">Email address:</label>
-                <input type="email" class="form-control" placeholder="Enter email" id="email">
+                <input type="email" class="form-control" placeholder="Enter email" id="email" name="email">
               </div>
 
               <div class="form-group">
                 <label for="pwd">Password:</label>
-                <input type="password" class="form-control" placeholder="Enter password" id="pwd">
+                <input type="password" class="form-control" placeholder="Enter password" id="pwd" name="password">
               </div>
 
               <button type="submit" class="btn btn-danger">Submit</button>

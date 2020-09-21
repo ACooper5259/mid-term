@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS categories CASCADE;
 CREATE TABLE organizations (
   id SERIAL PRIMARY KEY NOT NULL,
   name VARCHAR(255) NOT NULL,
-  url VARCHAR(255) NOT NULL
+  url VARCHAR(255)
 );
 
 CREATE TABLE users (
@@ -14,7 +14,7 @@ CREATE TABLE users (
   username VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL,
   organization_id INTEGER REFERENCES organizations(id) ON DELETE CASCADE,
-
+  email VARCHAR(255) NOT NULL,
   active BOOLEAN NOT NULL DEFAULT TRUE
 );
 
