@@ -10,6 +10,8 @@ const sass       = require("node-sass-middleware");
 const app        = express();
 const morgan     = require('morgan');
 const cookieSession = require('cookie-session');
+const multer  = require('multer');
+const forms = multer();
 
 // PG database client/connection setup
 const { Pool } = require('pg');
@@ -25,6 +27,7 @@ app.use(morgan('dev'));
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(forms.array())
 app.use(cookieSession({
   name: 'session',
   keys: ['secret']
