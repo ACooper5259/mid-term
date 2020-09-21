@@ -36,30 +36,109 @@
     </header>
 
     <main>
-      <div id="hero"><img src="./assets/1397.jpg" alt=""></div>
+      <!-- image under header -->
+      <div>
+        <img src="./assets/smaller_hero.png" width="100%" alt="">
+      </div>
 
+      <!-- generate new password form -->
 
-          <form id='generate-password'>
-            <h4>Create your new password here:</h4>
-            <div class="form-row">
-              <label>How long will your password be?</label>
-              <input type="number" class='length' name='length' placeholder ="length of password">
-            </div>
+      <form id='generate-password'>
+        <h4>Create your new password here:</h4>
+        <!-- user input area -->
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <label>How long will your password be?</label>
+            <input type="number" class='length' name='length' placeholder ="length of password">
+          </div>
+          <div class="form-group col-md-2">
             <input type='checkbox' class='number' name='number'>
             <label for=number> Need number? </label>
+          </div>
+          <div class="form-group col-md-2">
             <input type='checkbox' class='lowercase' name='lowercase'>
             <label for=lowercase> Need lowercase? </label>
+          </div>
+          <div class="form-group col-md-2">
             <input type='checkbox' class='uppercase' name='uppercase'>
             <label for=uppercase> Need uppercase? </label>
+          </div>
+          <div class="form-group col-md-2">
             <input type='checkbox' class='special-characters' name='special-characters'>
             <label for=special-characters> Need Special Characters? </label>
+          </div>
+        </div>
+        <!-- button -->
+        <div class="form-row">
+          <button type="submit" class="btn btn-danger password"> New Password! </button>
+        </div>
+        <br>
+      <!-- password output area -->
+        <h5>Your new password is: </h5>
+        <output name="new-password" class="password"></output>
 
-            <button type="submit"> New Password! </button>
-            <br>
-            <br>
-            <h5>You're new password is: </h5>
-            <output name="new-password" class="password"></output>
-          </form>
+      </form>
+
+      <!-- display websites and login credentials on db -->
+
+      <div id="websites-display" class="container-fluid">
+        <div class="row justify-content-center">
+          <div class="col-lg-6">
+            www.facebook.com
+            <div class="row">
+              <div class="col-lg-3">
+                Login id:
+              </div>
+              <div class="col-lg-3">
+                my login id
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3">
+                Password:
+              </div>
+              <div class="col-lg-3">
+                my password
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3">
+                Category:
+              </div>
+              <div class="col-lg-3">
+                social
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            www.facebook.com
+            <div class="row">
+              <div class="col-lg-3">
+                Login id:
+              </div>
+              <div class="col-lg-3">
+                my login id
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3">
+                Password:
+              </div>
+              <div class="col-lg-3">
+                my password
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3">
+                Category:
+              </div>
+              <div class="col-lg-3">
+                social
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
 
           <script type="text/javascript" src="/scripts/helper.js"></script>
