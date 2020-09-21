@@ -75,16 +75,11 @@ header {
   padding: 30px 0;
 }
 
-// display websites bootstraps sass mixins
-
-
-// .example-content-secondary {
-//   @include make-col-ready();
-
-//   @include media-breakpoint-up(sm) {
-//     @include make-col(6);
-//   }
-//   @include media-breakpoint-up(lg) {
-//     @include make-col(4);
-//   }
-// }
+//
+#websites-display {
+  color: $primary-blue;
+  font-family: $text-font;
+  font-size: 18px;
+  margin-left: 45px;
+  background-color: #ffffff;
+}
