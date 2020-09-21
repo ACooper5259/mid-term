@@ -85,7 +85,19 @@
               <button type="submit" class="btn btn-danger">Submit</button>
             </form>
           </div>
-
+          <form id='generate-password'>
+            <input type="number" id='length' name='length'>
+            <input type='checkbox' id='number' name='number'>
+            <label for=number> Need number? </label>
+            <input type='checkbox' id='lowercase' name='lowercase'>
+            <label for=lowercase> Need lowercase? </label>
+            <input type='checkbox' id='uppercase' name='uppercase'>
+            <label for=uppercase> Need uppercase? </label>
+            <button type="submit" class="password-generator"> New Password! </button>
+            <br>
+            <br>
+            <output name="new-password" class="password">result</output>
+          </form>
 
     </main>
     <footer>
