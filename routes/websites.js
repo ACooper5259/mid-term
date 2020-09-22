@@ -3,10 +3,11 @@ const express = require('express');
 const router  = express.Router();
 
 const getAllWebsites = function(guest_id, db) {
-  const queryString = `SELECT users.username, websites.url, loginName, websites.password
+  const queryString = `SELECT users.username, websites.url, loginName, websites.password, categories.type As category
   FROM websites
   JOIN users ON websites.user_id = users.id
   JOIN organizations ON organization_id = organizations.id
+  JOIN categories ON category_id = categories.id
   WHERE username = $1
   LIMIT 5;`;
 
