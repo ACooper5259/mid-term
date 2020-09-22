@@ -76,7 +76,18 @@ module.exports = (db) => {
         res.json({ success: false, error: err });
       });
 
-  })
+  });
+
+  router.delete('/:id', (req, res) => {
+    const query = 'DELETE FROM websites WHERE id = $1;';
+    db.query(query, [req.params.id])
+      .then(() => {
+        res.json({ success: true });
+      })
+      .catch((err) => {
+        res.json({ success: false, error: err });
+      });
+  });
 
   return router;
 };
