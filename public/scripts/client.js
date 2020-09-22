@@ -51,13 +51,19 @@ $(document).ready(function() {
     "password": 'JKSPRs',
     "loginName": 'dcraddock1',
     "category_id": 8,
-    "icon": 'http://dummyimage.com/50x50.png/5fa2dd/ffffff'}
+    "icon": 'http://dummyimage.com/50x50.png/5fa2dd/ffffff'},
+    {"id": 3,
+    "user_id": 7,
+    "url":'http://phpbb.com',
+    "password":'xtzufPx6',
+    "loginName": 'jsherrott0',
+    "category_id": 9,
+    "icon": 'http://dummyimage.com/50x50.jpg/cc0000/ffffff'},
   ]
 
   // Display Webiste Function
   const displayWebsites = function (websites) {
     for (const website of websites) {
-      console.log (website)
       const item_created = createWebsiteElement(website);
       $('.websites-display').append(item_created);
     }
@@ -111,3 +117,4 @@ $(document).ready(function() {
   loadWebsites()
 
 });
+
