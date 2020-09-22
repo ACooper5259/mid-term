@@ -99,7 +99,7 @@ $(document).ready(function() {
     return website
   }
 
-  displayWebsites(data)
+  // displayWebsites(data)
 
 
   // GET request for websites

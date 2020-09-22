@@ -181,7 +181,7 @@ module.exports = (db) => {
         if (loggedInUserID) {
           //Set the session cookie
           req.session.userID = loggedInUserID;
-          return res.json({ message: `userID: ${loggedInUserID} logged in!` });
+          return res.redirect('/')
         }
         return res
           .status(401)

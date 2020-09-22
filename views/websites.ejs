@@ -39,7 +39,12 @@
       <!-- image under header -->
       <div>
         <img src="./assets/smaller_hero.png" width="100%" alt="">
-      </div>
+        <% if(!username) {%>
+          <div>Login or register first!!!</div>
+        <% } else { %>
+          <div>LOGGED IN AS USER: <%= username %></div>
+          <%  }  %>
+        </div>
 
       <!-- generate new password form -->
 
@@ -85,6 +90,37 @@
       <h4 class="credentials">My Credentials</h4>
       <div  class="container-fluid">
         <div class="row justify-content-center websites-display">
+          <% if(websites){ %>
+            <% for(const websiteData of websites) { %>
+              <div  class="col-lg-6">
+                <%=websiteData.url %>
+                <div class="row">
+                  <div class="col-lg-3">
+                    Login id:
+                  </div>
+                  <div class="col-lg-3">
+                    <%=websiteData.loginname%>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-3">
+                    Password:
+                  </div>
+                  <div class="col-lg-3">
+                    <%=websiteData.password%>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-3">
+                    Category:
+                  </div>
+                  <div class="col-lg-3">
+                    <%=websiteData.category_id%>
+                  </div>
+                </div>
+              </div>
+              <%}%>
+          <%}%>
         </div>
       </div>
 
