@@ -67,7 +67,7 @@ $(document).ready(function() {
   // Create Website Element
   const createWebsiteElement = function (websiteData) {
     const website =  `
-    <div id="websites-display" class="col-lg-6">
+    <div  class="col-lg-6">
       ${websiteData.url}
       <div class="row">
         <div class="col-lg-3">
