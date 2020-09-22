@@ -76,10 +76,12 @@ header {
 }
 
 //
-#websites-display {
+.websites-display {
+  text-align: center;
   color: $primary-blue;
   font-family: $text-font;
   font-size: 18px;
   margin-left: 45px;
   background-color: #ffffff;
+  justify-content: center;
 }
