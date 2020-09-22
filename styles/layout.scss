@@ -65,6 +65,7 @@ header {
 
 // Generate password form
 #generate-password {
+  display: block;
   padding-left: 25px;
   color: $primary-blue;
   font-family: $text-font;
