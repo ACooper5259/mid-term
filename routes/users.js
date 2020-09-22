@@ -33,60 +33,46 @@ const checkUserExists = (user, db) => {
     })
 }
 
-
-
-
-const createNewUser = (newUser, db) => {
-  const query = `
+const insertNewUser = async (queryParams, db) => {
+  await db.query(`
   INSERT INTO users( email, username, password, organization_id)
-  VALUES ($1, $2, $3, $4);
-  `
+  VALUES ($1, $2, $3, $4);`
+    , queryParams)
+
+  return `SUCCESFULLY CREATED USER ${queryParams[1]}`;
+}
+
+const createNewUser = async (newUser, db) => {
   const hashedPassword = bcrypt.hashSync(newUser.password, 5);
   const orgName = newUser.organization_name;
 
-  return getOrganization(orgName, db).then(orgID => {
-    if (orgID) {
-      const queryParams = [newUser.email, newUser.username, hashedPassword, orgID];
-      return db.query(query, queryParams).then(data => {
-        return `SUCCESFULLY CREATED USER ${newUser.username}`;
-      })
-    } else {
-      createOrganization(orgName, db).then(data => {
-        getOrganization(orgName, db).then(orgID => {
-          console.log(orgID)
-          const queryParams = [newUser.email, newUser.username, hashedPassword, orgID];
-          return db.query(query, queryParams).then(data => {
-            return `SUCCESFULLY CREATED USER ${newUser.username}`;
-          })
-        })
-      }
-      )
-    }
-  }).catch(err => {
-    console.log(err)
-  })
-  //DB REQUEST FOR ORG_ID IF NOT MAKE ONE//////////////////////////////
-  ///////////////////////////////
-
+  let organizationID = await getOrganization(orgName, db);
+  if (organizationID) {
+    return await insertNewUser([newUser.email, newUser.username, hashedPassword, organizationID], db);
+  } else {
+    await createOrganization(orgName, db);
+    organizationID = await getOrganization(orgName, db);
+    return await insertNewUser([newUser.email, newUser.username, hashedPassword, organizationID], db);
+  }
 }
 
-const getOrganization = (organizationName, db) => {
+const getOrganization = async (organizationName, db) => {
   const query =
     `SELECT *
    FROM organizations
    WHERE name = $1`;
+
   const queryParams = [organizationName];
-  return db.query(query, queryParams)
-    .then(data => {
-      console.log(data.rows.length, "TEST")
-      if (data.rows.length > 0) {
-        console.log("YES")
-        return data.rows[0].id;
-      }
-      return null;
-    }).catch(err => {
-      console.log(err)
-    })
+  try {
+    const data = await db.query(query, queryParams);
+    if (data.rows.length > 0) {
+      return data.rows[0].id;
+    }
+    return null;
+  } catch (e) {
+    console.log(e.message);
+    return null;
+  }
 }
 
 
@@ -100,126 +86,129 @@ const createOrganization = (organizationName, db) => {
   return db.query(query, queryParams);
 }
 
-
-
-const verifyPassword = (email, password, db) => {
-  const query = `
+const getUserByEmail = async (email, db) => {
+  const data = await db.query(`
   SELECT * FROM users
-  WHERE email = $1;
-`
-  queryParams = [email];
-
-  return db.query(query, queryParams)
-    .then(data => {
-      const user = data.rows[0];
-      const hashedPassword = user.password;
-
-      if (bcrypt.compareSync(password, hashedPassword)) {
-        return user.id;
-      } else {
-        return null;
-      }
-    })
-    .catch(err => {
-      console.log(err)
-    });
-
+  WHERE email = $1;`
+    , [email]);
+  const user = data.rows[0];
+  return user;
 }
 
+
+const verifyPassword = async (email, password, db) => {
+  const user = await getUserByEmail(email, db);
+  const hashedPassword = user.password;
+
+  if (bcrypt.compareSync(password, hashedPassword)) {
+    return user.id;
+  } else {
+    return null;
+  }
+}
+
+const updatePassword = async (password, userID, db) => {
+  const query = `
+  UPDATE users
+  SET password = $1
+  WHERE id = $2;
+  `
+  const hashedPassword = bcrypt.hashSync(password, 5);
+  const queryParams = [hashedPassword, userID];
+
+    await db.query(query, queryParams);
+    return { message: `SUCCESFULLY UPDATED PASSWORD for user ${userID}` };
+}
+
+
+
 module.exports = (db) => {
-  router.get("/", (req, res) => {
-    db.query(`SELECT * FROM users;`)
-      .then(data => {
-        const users = data.rows;
-        res.json({ users });
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
-      });
+  router.get("/", async (req, res) => {
+    try {
+      const data = await db.query(`SELECT * FROM users;`);
+      res.json({ users: data.rows })
+    } catch (e) {
+      res
+        .status(500)
+        .json({ error: e.message });
+    }
   });
 
-  router.post("/", (req, res) => {
+  router.post("/", async (req, res) => {
     const newUser = req.body;
 
     if (!checkAllUserParamsExist(newUser)) {
       return res
         .status(500)
-        .json({ error: "Request is missing a field (name, email, password, organization_name)" });
+        .json({ error: "Request is missing a field (username, email, password, organization_name)" });
     }
 
-    checkUserExists(newUser, db).then(userExists => {
+    try {
+      const userExists = await checkUserExists(newUser, db);
       if (userExists) {
         return res
           .status(500)
           .json({ error: "email already exists" });
       }
-      createNewUser(newUser, db).then(message => {
-        console.log(message, "SUCCESS NEW USER")
-        return res.json(message);
-      }).catch(err => {
-        console.log(message, "FAIL NEW USER")
-        return res
-          .status(500)
-          .json({ error: err.message });
-      });
-    })
+      const userCreationMessage = await createNewUser(newUser, db);
+      return res.json(userCreationMessage);
+    } catch (e) {
+      return res
+        .status(500)
+        .json({ error: e.message });
+    }
   });
 
-  router.post("/login", (req, res) => {
+  router.post("/login", async (req, res) => {
     const user = req.body;
-    console.log(user)
-    checkUserExists(user, db).then(userExists => {
+    try {
+      const userExists = await checkUserExists(user, db);
       if (userExists) {
-        verifyPassword(user.email, user.password, db).then(userID => {
-          if (userID) {
-            console.log("LOGGED IN")
-            console.log(userID)
-            req.session.userID = userID;
-            return res.json({ message: "Logged In!" });
-          } else {
-            console.log("Wrong Password")
-            return res.json({ message: "Invalid credentials" });
-          }
-        })
-      } else {
+        const loggedInUserID = await verifyPassword(user.email, user.password, db);
+        if (loggedInUserID) {
+          //Set the session cookie
+          req.session.userID = loggedInUserID;
+          return res.json({ message: `userID: ${loggedInUserID} logged in!` });
+        }
         return res
-          .status(500)
-          .json({ error: "Invalid credentials" });
+          .status(401)
+          .json({ message: "Invalid credentials" });
       }
-    });
+    } catch (e) {
+      return res
+        .status(500)
+        .json({ error: e.message });
+    }
   });
+
   router.post('/logout', (req, res) => {
+    //Clear session cookie
     req.session = null;
     return res
-      .json({ error: "Succesfully logged out" });
+      .json({ message: "Succesfully logged out" });
   })
 
-  router.post('/password', (req, res) => {
+  router.post('/password', async (req, res) => {
     if (!req.session.userID) {
       return res
+        .status(401)
         .json({ error: "You must be logged in to edit your account password" });
     }
+
     if (!req.body.password) {
       return res
+        .status(422)
         .json({ error: "No password provided in the request body" });
     }
 
-    const query = `
-    UPDATE users
-    SET password = $1
-    WHERE id = $2;
-    `
-    const hashedPassword = bcrypt.hashSync(req.body.password, 5);
-    const queryParams = [hashedPassword, req.session.userID];
-
-    return db.query(query, queryParams).then(data => {
-      console.log("SUCCESS")
-      return res.json({ message: `SUCCESFULLY UPDATED PASSWORD for user ${req.session.userID}` })
-    }).catch(err => {
-      return res.json({ error: err })
-    })
+    try{
+      const updatePasswordMessage = await updatePassword(req.body.password, req.session.userID, db);
+      return res.json(updatePasswordMessage);
+    }catch(e){
+      return res
+      .status(500)
+      .json({ error: e.message });
+    }
   })
   return router;
 };
