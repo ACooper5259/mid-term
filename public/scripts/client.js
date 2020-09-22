@@ -35,8 +35,24 @@ $(document).ready(function() {
     $(".special-characters").prop("checked", false);
   } )
 
-  // ////////////// DISPLAY WEBSITES \\\\\\\\\\\\\\\ \\
+  const webCheck = () => {
+    $.ajax({
+      url: '/websites',
+      method: 'GET',
+      dataType: 'json',
+      success: (posts) => {
+        console.log(posts);
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    });
+  };
 
+  webCheck();
+
+  // ////////////// DISPLAY WEBSITES \\\\\\\\\\\\\\\ \\
+  /*
   const data = [
     {"id": 1,
     "user_id": 7,
@@ -53,8 +69,24 @@ $(document).ready(function() {
     "category_id": 8,
     "icon": 'http://dummyimage.com/50x50.png/5fa2dd/ffffff'}
   ]
+  */
+
+  $.ajax({
+    url: '/websites/',
+    method: 'GET',
+    dataType: 'json',
+    success: (websites) => {
+      console.log('Checking websites',websites);
+      displayWebsites(websites.websites);
+    },
+    error: (error) => {
+      console.error(error);
+    }
+  });
+
 
   // Display Webiste Function
+
   const displayWebsites = function (websites) {
     for (const website of websites) {
       console.log (website)
@@ -69,13 +101,13 @@ $(document).ready(function() {
   const createWebsiteElement = function (websiteData) {
     const website =  `
     <div  class="col-lg-6">
-      ${websiteData.url}
+      URL: ${websiteData.url}
       <div class="row">
         <div class="col-lg-3">
           Login id:
         </div>
         <div class="col-lg-3">
-          ${websiteData.loginName}
+          ${websiteData.loginname}
         </div>
       </div>
       <div class="row">
@@ -91,10 +123,13 @@ $(document).ready(function() {
           Category:
         </div>
         <div class="col-lg-3">
-        ${websiteData.category_id}
+        ${websiteData.category}
+        <br>
+        *************************************
         </div>
       </div>
     </div>`
+    console.log(websiteData);
 
     return website
   }
