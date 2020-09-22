@@ -8,7 +8,6 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
-const cookieSession = require('cookie-session');
 
 const checkAllUserParamsExist = (user) => {
   if (user.username && user.password && user.email) {
@@ -50,8 +49,7 @@ const createNewUser = async (newUser, db) => {
   if (organizationID) {
     return await insertNewUser([newUser.email, newUser.username, hashedPassword, organizationID], db);
   } else {
-    await createOrganization(orgName, db);
-    organizationID = await getOrganization(orgName, db);
+    organizationID = await createOrganization(orgName, db);
     return await insertNewUser([newUser.email, newUser.username, hashedPassword, organizationID], db);
   }
 }
@@ -76,14 +74,15 @@ const getOrganization = async (organizationName, db) => {
 }
 
 
-const createOrganization = (organizationName, db) => {
+const createOrganization = async (organizationName, db) => {
   const query =
     `
     INSERT INTO organizations(name)
     VALUES ($1);
     `;
   const queryParams = [organizationName];
-  return db.query(query, queryParams);
+  await db.query(query, queryParams);
+  return await getOrganization(organizationName, db);
 }
 
 const getUserByEmail = async (email, db) => {
@@ -120,7 +119,21 @@ const updatePassword = async (password, userID, db) => {
     return { message: `SUCCESFULLY UPDATED PASSWORD for user ${userID}` };
 }
 
+const updateOrganization = async (organizationName, userID, db) => {
+  const query = `
+  UPDATE users
+  SET organization_id = $1
+  WHERE id = $2;
+  `
+  let organizationID = await getOrganization(organizationName, db);
+  if(!organizationID){
+    organizationID = await createOrganization(organizationName, db);
+  }
+  const queryParams = [organizationID, userID];
 
+  await db.query(query, queryParams);
+  return { message: `SUCCESFULLY UPDATED organization for user ${userID}` };
+}
 
 module.exports = (db) => {
   router.get("/", async (req, res) => {
@@ -139,7 +152,7 @@ module.exports = (db) => {
 
     if (!checkAllUserParamsExist(newUser)) {
       return res
-        .status(500)
+        .status(422)
         .json({ error: "Request is missing a field (username, email, password, organization_name)" });
     }
 
@@ -210,5 +223,29 @@ module.exports = (db) => {
       .json({ error: e.message });
     }
   })
+
+  router.post('/organization', async (req, res) => {
+    if (!req.session.userID) {
+      return res
+        .status(401)
+        .json({ error: "You must be logged in to edit your account password" });
+    }
+    if (!req.body.organization_name) {
+      return res
+        .status(422)
+        .json({ error: "No organization_name provided in the request body" });
+    }
+
+    try{
+      const updateMessage = await updateOrganization(req.body.organization_name, req.session.userID, db);
+      res
+      .json({updateMessage})
+    }catch(e){
+      res
+      .status(500)
+      .json({error: e.message})
+    }
+  })
+
   return router;
 };
