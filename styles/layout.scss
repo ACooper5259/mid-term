@@ -76,13 +76,19 @@ header {
   padding: 30px 0;
 }
 
-//
-.websites-display {
+// Credentials display area
+.credentials{
   text-align: center;
+  padding: 40px;
+}
+
+.websites-display {
+  text-align: left;
   color: $primary-blue;
   font-family: $text-font;
   font-size: 18px;
-  margin-left: 45px;
+  margin: 0 45px 45px 45px;
   background-color: #ffffff;
   justify-content: center;
+  border: solid;
 }
