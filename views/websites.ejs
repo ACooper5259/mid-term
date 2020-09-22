@@ -75,8 +75,8 @@
         <br>
       <!-- password output area -->
         <h5>Your new password is: </h5>
-        <output name="new-password" class="password"></output>
-        <button type="button" id="new-password">📋</button>
+        <output id="copied" name="new-password" class="password"></output>
+        <button class="butn" data-clipboard-target='#copied'><img src="./assets/copyClipboard@33.33x.png" height="20px" alt=""></button>
 
 
       </form>
@@ -87,16 +87,20 @@
         <div class="row justify-content-center websites-display">
         </div>
       </div>
-
-
-          <script type="text/javascript" src="/scripts/helper.js"></script>
-          <script type="text/javascript" src="/scripts/client.js"></script>
-          <script type="text/javascript" src="/scripts/animate.js"></script>
-          <script type="text/javascript" src="/scripts/copyToClipboard.js"></script>
     </main>
-    </body>
-    <footer>
-      <div class="row">
-        <div class="col-lg-12"></div>
-    </footer>
+
+
+  <!-- External JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+  <!-- App JS -->
+    <script type="text/javascript" src="/scripts/helper.js"></script>
+    <script type="text/javascript" src="/scripts/client.js"></script>
+    <script type="text/javascript" src="/scripts/animate.js"></script>
+    <script type="text/javascript" src="/scripts/copyToClipboard.js"></script>
+
+  </body>
+  <footer>
+    <div class="row">
+      <div class="col-lg-12"></div>
+  </footer>
 </html>
