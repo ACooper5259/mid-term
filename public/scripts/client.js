@@ -17,6 +17,7 @@ $(document).ready(function() {
 
   workCheck();
 
+  // submit the foam for the password generate function
   $("#generate-password").on('submit',function(e) {
     e.preventDefault();
     let numCheck = $(".number").is(":checked") ? "true" : "false";
