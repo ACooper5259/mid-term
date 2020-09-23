@@ -1,4 +1,6 @@
 $(document).ready(function() {
+
+
   // submit the foam for the password generate function
   $("#generate-password").on('submit',function(e) {
     e.preventDefault();
@@ -18,12 +20,6 @@ $(document).ready(function() {
   } )
 
   // ////////////// DISPLAY WEBSITES \\\\\\\\\\\\\\\ \\
-const data = [
-  {'url': 'www.dffg.com',
-'loginName': 'asdf',
-'password': 'mnbv',
-'category': 'fun'}
-]
 
   $.ajax({
     url: '/websites/',
@@ -52,43 +48,27 @@ const data = [
   const createWebsiteElement = function (websiteData) {
     const website =`
       <div class="row row-cols-6">
-        <div class="col credentials">${websiteData.url}</div>
+        <div class="col credentials"><a href="http://${websiteData.url}">${websiteData.url}</a></div>
         <div class="col credentials">${websiteData.loginname}</div>
         <div class="col credentials">${websiteData.password}</div>
         <div class="col credentials">${websiteData.category}</div>
-        <div class="col credentials"><img src="./assets/edit-icon.png"></div>
-        <div class="col credentials"><img src="./assets/delete-icon.png"></div>
+        <div class="col credentials"><button type="button"><img src="./assets/edit-icon.png"></button></div>
+        <div class="col credentials"><button type="button"><img src="./assets/delete-icon.png"></button></div>
       </div>`
       console.log(websiteData);
 
     return website
   }
 
+  displayWebsites(websites)
 
-  displayWebsites(data)
-
-// GET request for websites
-const loadWebsites = () => {
-  $.get('/websites', (websites) => {
-  displayWebsites(websites);
-});
-};
-loadWebsites()
-
-
-
-
-  // POST the form for the new webistes
-//  $("#new-website").on('submit', function (event) {
-//   event.preventDefault();
-//   console.log(event)
-//   const serializedWebsiteForm= $(this).serialize();
-//   $.post('/websites/', serializedWebsiteForm)
-//     .then ((response) => {
-//     console.log(response)
-//       loadWebsites()
-//     })
-//   });
+  // GET request for websites
+  const loadWebsites = () => {
+    $.get('/websites', (websites) => {
+    displayWebsites(websites);
+  });
+  };
+  loadWebsites()
 
 
 
