@@ -51,6 +51,12 @@ $(document).ready(function() {
 
   webCheck();
 
+
+
+
+
+
+
   // ////////////// DISPLAY WEBSITES \\\\\\\\\\\\\\\ \\
 const data = [
   {'url': 'www.dffg.com',
@@ -82,7 +88,7 @@ const data = [
     }
   }
 
-  // escape function
+
 
   // Create Website Element
   const createWebsiteElement = function (websiteData) {
@@ -93,14 +99,23 @@ const data = [
         <div class="col credentials">${websiteData.password}</div>
         <div class="col credentials">${websiteData.category}</div>
       </div>`
-      console.log(websiteData);
-
-
+      // console.log(websiteData);
     return website
   }
 
   displayWebsites(data)
 
+  // POST the form for the new webistes
+//  $("#new-website").on('submit', function (event) {
+//   event.preventDefault();
+//   console.log(event)
+//   const serializedWebsiteForm= $(this).serialize();
+//   $.post('/websites/', serializedWebsiteForm)
+//     .then ((response) => {
+//     console.log(response)
+//       loadWebsites()
+//     })
+//   });
 
   // GET request for websites
   const loadWebsites = () => {
@@ -109,6 +124,9 @@ const data = [
     });
   };
   loadWebsites()
+
+
+
 
 });
 
