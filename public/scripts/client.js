@@ -1,22 +1,4 @@
 $(document).ready(function() {
-  console.log('test')
-
-  const workCheck = () => {
-    $.ajax({
-      url: '/new',
-      method: 'GET',
-      dataType: 'json',
-      success: (posts) => {
-        console.log(posts);
-      },
-      error: (error) => {
-        console.error(error);
-      }
-    });
-  };
-
-  workCheck();
-
   // submit the foam for the password generate function
   $("#generate-password").on('submit',function(e) {
     e.preventDefault();
@@ -35,28 +17,6 @@ $(document).ready(function() {
     $(".special-characters").prop("checked", false);
   } )
 
-  const webCheck = () => {
-    $.ajax({
-      url: '/websites',
-      method: 'GET',
-      dataType: 'json',
-      success: (posts) => {
-        console.log(posts);
-      },
-      error: (error) => {
-        console.error(error);
-      }
-    });
-  };
-
-  webCheck();
-
-
-
-
-
-
-
   // ////////////// DISPLAY WEBSITES \\\\\\\\\\\\\\\ \\
 const data = [
   {'url': 'www.dffg.com',
@@ -70,14 +30,12 @@ const data = [
     method: 'GET',
     dataType: 'json',
     success: (websites) => {
-      console.log('Checking websites',websites);
       displayWebsites(websites.websites);
     },
     error: (error) => {
       console.error(error);
     }
   });
-
 
   // Display Webiste Function
 
@@ -95,17 +53,18 @@ const data = [
     const website =`
       <div class="row row-cols-4">
         <div class="col credentials">${websiteData.url}</div>
-        <div class="col credentials">${websiteData.loginName}</div>
+        <div class="col credentials">${websiteData.loginname}</div>
         <div class="col credentials">${websiteData.password}</div>
         <div class="col credentials">${websiteData.category}</div>
       </div>`
-      // console.log(websiteData);
+      console.log(websiteData);
+
     return website
   }
 
-  displayWebsites(data)
+  $('.delete-site').click(function () {
 
-  // POST the form for the new webistes
+      // POST the form for the new webistes
 //  $("#new-website").on('submit', function (event) {
 //   event.preventDefault();
 //   console.log(event)
@@ -117,13 +76,21 @@ const data = [
 //     })
 //   });
 
-  // GET request for websites
-  const loadWebsites = () => {
-    $.get('/websites', (websites) => {
-      displayWebsites(websites);
+    const url_id = $(this).val();
+    console.log('what is url_id',url_id)
+
+    $.ajax({
+        type: "DELETE",
+        url: '/url/' + url_id,
+        data: {_method: 'delete', _token :token},
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (data) {
+            console.log('Error:', data);
+        }
     });
-  };
-  loadWebsites()
+  })
 
 
 

@@ -156,7 +156,7 @@ module.exports = (db) => {
         if (loggedInUserID) {
           //Set the session cookie
           req.session.userID = loggedInUserID;
-          return res.redirect('/')
+          return res.redirect('/new')
         }
 
     } catch (e) {
@@ -175,7 +175,7 @@ module.exports = (db) => {
         if (loggedInUserID) {
           //Set the session cookie
           req.session.userID = loggedInUserID;
-          return res.redirect('/')
+          return res.redirect('/new')
         }
         return res
           .status(401)

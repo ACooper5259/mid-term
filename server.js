@@ -2,15 +2,15 @@
 require('dotenv').config();
 
 // Web server config
-const PORT       = process.env.PORT || 8080;
-const ENV        = process.env.ENV || "development";
-const express    = require("express");
+const PORT = process.env.PORT || 8080;
+const ENV = process.env.ENV || "development";
+const express = require("express");
 const bodyParser = require("body-parser");
-const sass       = require("node-sass-middleware");
-const app        = express();
-const morgan     = require('morgan');
+const sass = require("node-sass-middleware");
+const app = express();
+const morgan = require('morgan');
 const cookieSession = require('cookie-session');
-const multer  = require('multer');
+const multer = require('multer');
 const forms = multer();
 
 // PG database client/connection setup
@@ -61,7 +61,21 @@ app.get("/", (req, res) => {
 });
 
 app.get("/new", (req, res) => {
-  res.render("websites");
+  const templateVars = {
+    username: null
+  };
+
+  if (req.session.userID) {
+    db.query(`SELECT * FROM users WHERE id = $1;`, [req.session.userID])
+      .then(data => {
+        console.log(data.rows)
+        if (data.rows[0]) {
+          const username = data.rows[0].username;
+          templateVars.username = username;
+        }
+        res.render("websites", templateVars);
+      })
+  }
 });
 
 app.listen(PORT, () => {
