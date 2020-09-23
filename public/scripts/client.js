@@ -127,5 +127,10 @@ const data = [
       }
     })
   })
+
+  $('#logout-btn').click(function () {
+    alert("button");
+  })
+
 });
 
