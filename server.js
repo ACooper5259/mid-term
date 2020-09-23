@@ -60,21 +60,31 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.get("/new", (req, res) => {
+app.get("/new", async (req, res) => {
   const templateVars = {
-    username: null
+    username: null,
+    organization: null,
   };
 
   if (req.session.userID) {
-    db.query(`SELECT * FROM users WHERE id = $1;`, [req.session.userID])
-      .then(data => {
-        console.log(data.rows)
-        if (data.rows[0]) {
-          const username = data.rows[0].username;
-          templateVars.username = username;
-        }
-        res.render("websites", templateVars);
-      })
+    try {
+      const userData = await db.query(`SELECT * FROM users WHERE id = $1;`, [req.session.userID])
+      const user = userData.rows[0];
+      const organizationData = await db.query(`SELECT name FROM organizations WHERE id = $1;`, [user.organization_id])
+      const organizationName = organizationData.rows[0].name
+
+      templateVars.username = user.username;
+      templateVars.organization = organizationName;
+
+      res.render("websites", templateVars);
+
+    } catch (e) {
+      return res
+        .status(500)
+        .json({ error: e.message });
+    }
+  } else {
+    res.render("websites", templateVars);
   }
 });
 
