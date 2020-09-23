@@ -11,7 +11,7 @@ insert into organizations (id, name, url) values (9, 'Eayo', 'http://paginegiall
 insert into organizations (id, name, url) values (10, 'Bluejam', 'https://rakuten.co.jp');
 
 -- users fake data
-insert into users (id, email, name, password, organization_name) values (1, 'test@test.com', 'tester', '1245', 1);
+insert into users (id, email, username, password, organization_name) values (1, 'test@test.com', 'tester', '1245', 1);
 insert into users (id, email, name, password, organization_name) values (2, 'ghartless1@google.com.au', 'Gregory Hartless', 'd2zzZnNf7W', 2);
 insert into users (id, email, name, password, organization_name) values (3, 'mmarklin2@odnoklassniki.ru', 'Mohandas Marklin', 'kmbuoBqP', 3);
 insert into users (id, email, name, password, organization_name) values (4, 'zstockin3@berkeley.edu', 'Zaria Stockin', 'zpmTQnSKp', 4);
