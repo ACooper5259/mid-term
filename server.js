@@ -61,7 +61,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/new", (req, res) => {
-  res.render("index");
+  res.render("websites");
 });
 
 app.listen(PORT, () => {

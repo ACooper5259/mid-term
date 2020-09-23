@@ -11,16 +11,10 @@ CREATE TABLE organizations (
 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY NOT NULL,
-  username VARCHAR(255) NOT NULL,
-  password VARCHAR(255) NOT NULL,
-  organization_id INTEGER REFERENCES organizations(id) ON DELETE CASCADE,
   email VARCHAR(255) NOT NULL,
-  active BOOLEAN NOT NULL DEFAULT TRUE
-);
-
-CREATE TABLE categories (
-  id SERIAL PRIMARY KEY NOT NULL,
-  type VARCHAR(255) NOT NULL DEFAULT 'NONE'
+  name VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  organization_name INTEGER REFERENCES organizations(id) ON DELETE CASCADE
 );
 
 CREATE TABLE websites (
@@ -29,6 +23,5 @@ CREATE TABLE websites (
   url VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL,
   loginName VARCHAR(255) NOT NULL,
-  category_id INTEGER REFERENCES categories(id) ON DELETE CASCADE,
-  icon VARCHAR(255)
+  category VARCHAR(255) NOT NULL
 );

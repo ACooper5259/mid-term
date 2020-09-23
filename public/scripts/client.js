@@ -52,25 +52,6 @@ $(document).ready(function() {
   webCheck();
 
   // ////////////// DISPLAY WEBSITES \\\\\\\\\\\\\\\ \\
-  /*
-  const data = [
-    {"id": 1,
-    "user_id": 7,
-    "url":'http://phpbb.com',
-    "password":'xtzufPx6',
-    "loginName": 'jsherrott0',
-    "category_id": 9,
-    "icon": 'http://dummyimage.com/50x50.jpg/cc0000/ffffff'},
-    {"id": 2,
-    "user_id": 8,
-    "url": 'http://sfgate.com',
-    "password": 'JKSPRs',
-    "loginName": 'dcraddock1',
-    "category_id": 8,
-    "icon": 'http://dummyimage.com/50x50.png/5fa2dd/ffffff'}
-  ]
-  */
-
   $.ajax({
     url: '/websites/',
     method: 'GET',
