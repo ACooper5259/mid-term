@@ -3,11 +3,11 @@ const express = require('express');
 const router  = express.Router();
 
 const getAllWebsites = function(guest_id, db) {
+  console.log('guest_id',guest_id);
   const queryString = `SELECT users.email, websites.url, loginName, websites.password, category
   FROM websites
   JOIN users ON websites.user_id = users.id
-  JOIN organizations ON organization_name = organizations.id
-  WHERE email = $1
+  WHERE user_id = $1
   LIMIT 5;`;
 
   return db.query(queryString, [guest_id])
@@ -33,8 +33,8 @@ const addWebsite = function(website, db) {
 
 module.exports = (db) => {
   router.get('/', (req, res) => {
-    const logedInUser = 'gcliff4@vinaora.com';
-    //req.session.userID;
+    const logedInUser = req.session.userID;
+    console.log('cookie',req.session.userID);
     console.log('login user?',logedInUser);
     if (!logedInUser) {
       res.json({ error: "login first" });
