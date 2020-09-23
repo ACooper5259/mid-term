@@ -6,23 +6,25 @@ const generatedPassword = function(totalLength, number, lowerCase, upperCase, sp
   const specialChar = '!@#$%^&*+-'
   let letters = '';
 
+  console.log('inside helper', totalLength, number, lowerCase, upperCase, special);
+
   if (totalLength > 0) {
     passwordLength = totalLength;
   }
 
-  if (number ===  'true') {
+  if (number) {
     letters += numberList;
   }
 
-  if (lowerCase === 'true') {
+  if (lowerCase) {
     letters += lowerCaseList;
   }
 
-  if (upperCase === 'true') {
+  if (upperCase) {
     letters += upperCaseList;
   }
 
-  if (special === 'true') {
+  if (special) {
     letters += specialChar;
   }
 
