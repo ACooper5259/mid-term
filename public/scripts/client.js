@@ -93,7 +93,6 @@ const data = [
   })
 
 
-<<<<<<< HEAD
   $('#register-form').submit(function (ev) {
     ev.preventDefault();
     const formData = $('#register-form').serialize();
@@ -129,9 +128,6 @@ const data = [
       }
     })
   })
-=======
-
->>>>>>> master
 
 });
 
