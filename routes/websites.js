@@ -3,11 +3,11 @@ const express = require('express');
 const router  = express.Router();
 
 const getAllWebsites = function(guest_id, db) {
-  const queryString = `SELECT users.username, websites.url, loginName, websites.password
+  const queryString = `SELECT users.email, websites.url, loginName, websites.password, category
   FROM websites
   JOIN users ON websites.user_id = users.id
-  JOIN organizations ON organization_id = organizations.id
-  WHERE username = $1
+  JOIN organizations ON organization_name = organizations.id
+  WHERE email = $1
   LIMIT 5;`;
 
   return db.query(queryString, [guest_id])
@@ -19,7 +19,7 @@ const getAllWebsites = function(guest_id, db) {
 }
 
 const addWebsite = function(website, db) {
-  const queryString = `insert into websites (user_id, url, password, loginName, category_id, icon) values ($1, $2, $3, $4, $5, $6);`;
+  const queryString = `insert into websites (user_id, url, password, loginName, category) values ($1, $2, $3, $4, $5);`;
 
   const valueArray = [];
   for (const key in website) {
@@ -33,7 +33,7 @@ const addWebsite = function(website, db) {
 
 module.exports = (db) => {
   router.get('/', (req, res) => {
-    const logedInUser = 'hbrahmer5';
+    const logedInUser = 'gcliff4@vinaora.com';
     //req.session.userID;
     console.log('login user?',logedInUser);
     if (!logedInUser) {
@@ -67,7 +67,6 @@ module.exports = (db) => {
     const { url, password, loginName, category_id, icon } = req.body;
     const queryString = `UPDATE websites SET url = $1, password = $2, category_id = $3, icon = $4 WHERE user_id = $5;`;
 
-    console.log([ url, password, loginName, category_id, icon, req.params.user_id]);
     db.query(queryString, [ url, password, loginName, category_id, icon, req.params.user_id])
       .then((response) => {
         res.json( { success: true, post: response.rows[0] });

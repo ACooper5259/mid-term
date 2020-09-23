@@ -35,33 +35,39 @@ $(document).ready(function() {
     $(".special-characters").prop("checked", false);
   } )
 
-  // ////////////// DISPLAY WEBSITES \\\\\\\\\\\\\\\ \\
+  const webCheck = () => {
+    $.ajax({
+      url: '/websites',
+      method: 'GET',
+      dataType: 'json',
+      success: (posts) => {
+        console.log(posts);
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    });
+  };
 
-  const data = [
-    {"id": 1,
-    "user_id": 7,
-    "url":'http://phpbb.com',
-    "password":'xtzufPx6',
-    "loginName": 'jsherrott0',
-    "category_id": 9,
-    "icon": 'http://dummyimage.com/50x50.jpg/cc0000/ffffff'},
-    {"id": 2,
-    "user_id": 8,
-    "url": 'http://sfgate.com',
-    "password": 'JKSPRs',
-    "loginName": 'dcraddock1',
-    "category_id": 8,
-    "icon": 'http://dummyimage.com/50x50.png/5fa2dd/ffffff'},
-    {"id": 3,
-    "user_id": 7,
-    "url":'http://phpbb.com',
-    "password":'xtzufPx6',
-    "loginName": 'jsherrott0',
-    "category_id": 9,
-    "icon": 'http://dummyimage.com/50x50.jpg/cc0000/ffffff'},
-  ]
+  webCheck();
+
+  // ////////////// DISPLAY WEBSITES \\\\\\\\\\\\\\\ \\
+  $.ajax({
+    url: '/websites/',
+    method: 'GET',
+    dataType: 'json',
+    success: (websites) => {
+      console.log('Checking websites',websites);
+      displayWebsites(websites.websites);
+    },
+    error: (error) => {
+      console.error(error);
+    }
+  });
+
 
   // Display Webiste Function
+
   const displayWebsites = function (websites) {
     for (const website of websites) {
       const item_created = createWebsiteElement(website);
@@ -78,8 +84,9 @@ $(document).ready(function() {
         <div class="col credentials">${websiteData.url}</div>
         <div class="col credentials">${websiteData.loginName}</div>
         <div class="col credentials">${websiteData.password}</div>
-        <div class="col credentials">${websiteData.category_id}</div>
+        <div class="col credentials">${websiteData.category}</div>
       </div>`
+      console.log(websiteData);
 
 
     return website

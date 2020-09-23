@@ -45,7 +45,8 @@ const insertNewUser = async (queryParams, db) => {
 const createNewUser = async (newUser, db) => {
   const hashedPassword = bcrypt.hashSync(newUser.password, 5);
   const orgName = newUser.organization_name;
-
+  console.log('new user',newUser);
+  console.log('line 48',hashedPassword);
   let organizationID = await getOrganization(orgName, db);
   if (organizationID) {
     return await insertNewUser([newUser.email, newUser.username, hashedPassword, organizationID], db);
@@ -99,7 +100,7 @@ const getUserByEmail = async (email, db) => {
 const verifyPassword = async (email, password, db) => {
   const user = await getUserByEmail(email, db);
   const hashedPassword = user.password;
-
+  console.log(password, 'compare', hashedPassword);
   if (bcrypt.compareSync(password, hashedPassword)) {
     return user.id;
   } else {
@@ -150,8 +151,14 @@ module.exports = (db) => {
           .status(500)
           .json({ error: "email already exists" });
       }
-      const userCreationMessage = await createNewUser(newUser, db);
-      return res.json(userCreationMessage);
+      await createNewUser(newUser, db);
+      const loggedInUserID = await verifyPassword(newUser.email, newUser.password, db);
+        if (loggedInUserID) {
+          //Set the session cookie
+          req.session.userID = loggedInUserID;
+          return res.redirect('/')
+        }
+
     } catch (e) {
       return res
         .status(500)
@@ -168,7 +175,7 @@ module.exports = (db) => {
         if (loggedInUserID) {
           //Set the session cookie
           req.session.userID = loggedInUserID;
-          return res.json({ message: `userID: ${loggedInUserID} logged in!` });
+          return res.redirect('/')
         }
         return res
           .status(401)
