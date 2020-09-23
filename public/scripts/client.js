@@ -18,6 +18,13 @@ $(document).ready(function () {
   })
 
   // ////////////// DISPLAY WEBSITES \\\\\\\\\\\\\\\ \\
+const data = [
+  {'url': 'www.dffg.com',
+'loginName': 'asdf',
+'password': 'mnbv',
+'category': 'fun'}
+]
+
   $.ajax({
     url: '/websites/',
     method: 'GET',
@@ -39,7 +46,7 @@ $(document).ready(function () {
     }
   }
 
-  // escape function
+
 
   // Create Website Element
   const createWebsiteElement = function (websiteData) {
@@ -56,6 +63,18 @@ $(document).ready(function () {
   }
 
   $('.delete-site').click(function () {
+
+      // POST the form for the new webistes
+//  $("#new-website").on('submit', function (event) {
+//   event.preventDefault();
+//   console.log(event)
+//   const serializedWebsiteForm= $(this).serialize();
+//   $.post('/websites/', serializedWebsiteForm)
+//     .then ((response) => {
+//     console.log(response)
+//       loadWebsites()
+//     })
+//   });
 
     const url_id = $(this).val();
     console.log('what is url_id', url_id)
@@ -74,6 +93,7 @@ $(document).ready(function () {
   })
 
 
+<<<<<<< HEAD
   $('#register-form').submit(function (ev) {
     ev.preventDefault();
     const formData = $('#register-form').serialize();
@@ -109,6 +129,9 @@ $(document).ready(function () {
       }
     })
   })
+=======
+
+>>>>>>> master
 
 });
 

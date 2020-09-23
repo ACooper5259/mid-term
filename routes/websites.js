@@ -59,6 +59,7 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
 
+
   })
 
   router.patch('/:user_id', (req, res) => {
