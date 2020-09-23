@@ -150,8 +150,14 @@ module.exports = (db) => {
           .status(500)
           .json({ error: "email already exists" });
       }
-      const userCreationMessage = await createNewUser(newUser, db);
-      return res.json(userCreationMessage);
+      await createNewUser(newUser, db);
+      const loggedInUserID = await verifyPassword(newUser.email, newUser.password, db);
+        if (loggedInUserID) {
+          //Set the session cookie
+          req.session.userID = loggedInUserID;
+          return res.redirect('/')
+        }
+
     } catch (e) {
       return res
         .status(500)
@@ -168,7 +174,7 @@ module.exports = (db) => {
         if (loggedInUserID) {
           //Set the session cookie
           req.session.userID = loggedInUserID;
-          return res.json({ message: `userID: ${loggedInUserID} logged in!` });
+          return res.redirect('/')
         }
         return res
           .status(401)
