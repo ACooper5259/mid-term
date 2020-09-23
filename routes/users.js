@@ -156,6 +156,7 @@ module.exports = (db) => {
         if (loggedInUserID) {
           //Set the session cookie
           req.session.userID = loggedInUserID;
+          console.log("REDIRECT")
           return res.redirect('/new')
         }
 
@@ -167,6 +168,7 @@ module.exports = (db) => {
   });
 
   router.post("/login", async (req, res) => {
+
     const user = req.body;
     try {
       const userExists = await checkUserExists(user, db);

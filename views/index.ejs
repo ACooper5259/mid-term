@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-
+    <div id="ajax"> TEST</div>
     <title>Home Page</title>
-
     <!-- outside css links -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;1,500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap" rel="stylesheet">
@@ -40,7 +39,7 @@
           <div class="col-lg-1"></div>
 
           <div class="col-lg-4">
-            <form id="register-form" action="/user" method="POST">
+            <form id="register-form">
               <h4> Register Here</h4>
               <div class="form-group">
                 <label for="email">Name:</label>
@@ -62,7 +61,7 @@
                 <input type="text" class="form-control" placeholder="Enter company name" id="company" name="organization_name">
               </div>
 
-              <button type="submit" class="btn btn-danger">Submit</button>
+              <button id="register-button" type="submit" class="btn btn-danger">Submit</button>
             </form>
 
           </div>
@@ -71,7 +70,7 @@
           <div class="col-lg-1"></div>
 
           <div class="col-lg-4">
-            <form id="login-form" action="/user/login" method="POST">
+            <form id="login-form">
               <h4> Login Here</h4>
 
               <div class="form-group">

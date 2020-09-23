@@ -1,6 +1,6 @@
-$(document).ready(function() {
+$(document).ready(function () {
   // submit the foam for the password generate function
-  $("#generate-password").on('submit',function(e) {
+  $("#generate-password").on('submit', function (e) {
     e.preventDefault();
     let numCheck = $(".number").is(":checked") ? "true" : "false";
     let lowercaseCheck = $(".lowercase").is(":checked") ? "true" : "false";
@@ -15,7 +15,7 @@ $(document).ready(function() {
     $(".lowercase").prop("checked", false);
     $(".uppercase").prop("checked", false);
     $(".special-characters").prop("checked", false);
-  } )
+  })
 
   // ////////////// DISPLAY WEBSITES \\\\\\\\\\\\\\\ \\
   $.ajax({
@@ -43,14 +43,14 @@ $(document).ready(function() {
 
   // Create Website Element
   const createWebsiteElement = function (websiteData) {
-    const website =`
+    const website = `
       <div class="row row-cols-4">
         <div class="col credentials">${websiteData.url}</div>
         <div class="col credentials">${websiteData.loginname}</div>
         <div class="col credentials">${websiteData.password}</div>
         <div class="col credentials">${websiteData.category}</div>
       </div>`
-      console.log(websiteData);
+    console.log(websiteData);
 
     return website
   }
@@ -58,19 +58,56 @@ $(document).ready(function() {
   $('.delete-site').click(function () {
 
     const url_id = $(this).val();
-    console.log('what is url_id',url_id)
+    console.log('what is url_id', url_id)
 
     $.ajax({
-        type: "DELETE",
-        url: '/url/' + url_id,
-        data: {_method: 'delete', _token :token},
-        success: function (data) {
-            console.log(data);
-        },
-        error: function (data) {
-            console.log('Error:', data);
-        }
+      type: "DELETE",
+      url: '/url/' + url_id,
+      data: { _method: 'delete', _token: token },
+      success: function (data) {
+        console.log(data);
+      },
+      error: function (data) {
+        console.log('Error:', data);
+      }
     });
+  })
+
+
+  $('#register-form').submit(function (ev) {
+    ev.preventDefault();
+    const formData = $('#register-form').serialize();
+    $.ajax({
+      url: '/user',
+      type: 'POST',
+      cache: false,
+      data: formData,
+      success: function (data) {
+        window.location='/new'
+        // alert('Success!')
+      }
+      , error: function (textStatus, err) {
+        alert('text status ' + textStatus + ', err ' + err)
+      }
+    })
+  })
+
+  $('#login-form').submit(function (ev) {
+    ev.preventDefault();
+    const formData = $('#login-form').serialize();
+    $.ajax({
+      url: '/user',
+      type: 'POST',
+      cache: false,
+      data: formData,
+      success: function (data) {
+        window.location='/new'
+        // alert('Success!')
+      }
+      , error: function (textStatus, err) {
+        alert('text status ' + textStatus + ', err ' + err)
+      }
+    })
   })
 
 });
