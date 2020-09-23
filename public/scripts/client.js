@@ -51,20 +51,34 @@ const data = [
   // Create Website Element
   const createWebsiteElement = function (websiteData) {
     const website =`
-      <div class="row row-cols-4">
+      <div class="row row-cols-6">
         <div class="col credentials">${websiteData.url}</div>
         <div class="col credentials">${websiteData.loginname}</div>
         <div class="col credentials">${websiteData.password}</div>
         <div class="col credentials">${websiteData.category}</div>
+        <div class="col credentials"><img src="./assets/edit-icon.png"></div>
+        <div class="col credentials"><img src="./assets/delete-icon.png"></div>
       </div>`
       console.log(websiteData);
 
     return website
   }
 
-  $('.delete-site').click(function () {
 
-      // POST the form for the new webistes
+  displayWebsites(data)
+
+// GET request for websites
+const loadWebsites = () => {
+  $.get('/websites', (websites) => {
+  displayWebsites(websites);
+});
+};
+loadWebsites()
+
+
+
+
+  // POST the form for the new webistes
 //  $("#new-website").on('submit', function (event) {
 //   event.preventDefault();
 //   console.log(event)
@@ -76,6 +90,9 @@ const data = [
 //     })
 //   });
 
+
+
+    $('.delete-site').click(function () {
     const url_id = $(this).val();
     console.log('what is url_id',url_id)
 
