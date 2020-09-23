@@ -11,25 +11,26 @@ insert into organizations (id, name, url) values (9, 'Eayo', 'http://paginegiall
 insert into organizations (id, name, url) values (10, 'Bluejam', 'https://rakuten.co.jp');
 
 -- users fake data
-insert into users (id, email, username, password, organization_name) values (1, 'test@test.com', 'tester', '1245', 1);
-insert into users (id, email, name, password, organization_name) values (2, 'ghartless1@google.com.au', 'Gregory Hartless', 'd2zzZnNf7W', 2);
-insert into users (id, email, name, password, organization_name) values (3, 'mmarklin2@odnoklassniki.ru', 'Mohandas Marklin', 'kmbuoBqP', 3);
-insert into users (id, email, name, password, organization_name) values (4, 'zstockin3@berkeley.edu', 'Zaria Stockin', 'zpmTQnSKp', 4);
-insert into users (id, email, name, password, organization_name) values (5, 'gcliff4@vinaora.com', 'Gianni Cliff', 'YBmOuJlj9Y', 5);
-insert into users (id, email, name, password, organization_name) values (6, 'dstarkey5@unicef.org', 'Daisy Starkey', 'KVRym7RRtOOw', 6);
-insert into users (id, email, name, password, organization_name) values (7, 'kpeers6@twitter.com', 'Koren Peers', 'Wt7nbAQJoOXp', 7);
-insert into users (id, email, name, password, organization_name) values (8, 'nhulett7@canalblog.com', 'Nisse Hulett', 'hRo4RAEo', 8);
-insert into users (id, email, name, password, organization_name) values (9, 'cfennelow8@dell.com', 'Cory Fennelow', 'UAlI0Is', 9);
-insert into users (id, email, name, password, organization_name) values (10, 'ejollye9@amazon.co.uk', 'Elsworth Jollye', 'YyyXJVpZoP', 10);
+insert into users (id, email, username, password, organization_id) values (1, 'vgoodlett0@craigslist.org', 'fstedman0', 'rzvRUP', 1);
+insert into users (id, email, username, password, organization_id) values (2, 'gbutcher1@washingtonpost.com', 'dskoggins1', 'WznJCcK8r', 9);
+insert into users (id, email, username, password, organization_id) values (3, 'jshimwall2@washington.edu', 'wjeaffreson2', 'XKlFa1gVmgB8', 7);
+insert into users (id, email, username, password, organization_id) values (4, 'bmayow3@histats.com', 'vdargan3', 'HHgBoVEoA', 5);
+insert into users (id, email, username, password, organization_id) values (5, 'gdriutti4@icio.us', 'rmulvenna4', 'AaIlBS4tq', 4);
+insert into users (id, email, username, password, organization_id) values (6, 'fmcconnachie5@businessweek.com', 'mbolles5', 'nPFfZD', 2);
+insert into users (id, email, username, password, organization_id) values (7, 'happs6@scientificamerican.com', 'dmcclenan6', 'noIPg7yXbRv', 10);
+insert into users (id, email, username, password, organization_id) values (8, 'egee7@naver.com', 'kfozard7', 'PINjfsrqWLf', 7);
+insert into users (id, email, username, password, organization_id) values (9, 'hnunesnabarro8@wufoo.com', 'rsapir8', '4z9Aq7p', 1);
+insert into users (id, email, username, password, organization_id) values (10, 'cgreenside9@pcworld.com', 'fgimenez9', 'rhsg6zqYlB1', 5);
+insert into users (id, email, username, password, organization_id) values (11, 'test@test.com', 'tester', '1245', 1);
 
 -- categories fake data
-insert into websites (id, user_id, url, password, loginName, category) values (1, 5, 'http://rediff.com', 'ZCV4bp0e4', 'srollinson0', 'Y-find');
-insert into websites (id, user_id, url, password, loginName, category) values (2, 10, 'http://cyberchimps.com', 'jRvWEPi65', 'cfitchett1', 'Zoolab');
-insert into websites (id, user_id, url, password, loginName, category) values (3, 3, 'https://cpanel.net', 'UhffXkAKl', 'bscoggins2', 'Redhold');
-insert into websites (id, user_id, url, password, loginName, category) values (4, 4, 'http://state.tx.us', 'V4SVIkioFS', 'fnesbeth3', 'Job');
-insert into websites (id, user_id, url, password, loginName, category) values (5, 5, 'http://slashdot.org', 'dNBZqg6Vf', 'hedgley4', 'Bitwolf');
-insert into websites (id, user_id, url, password, loginName, category) values (6, 4, 'https://chron.com', 'kOqUbPm', 'dsorrill5', 'Ventosanzap');
-insert into websites (id, user_id, url, password, loginName, category) values (7, 5, 'https://java.com', 'H5iw3g', 'rmcnaughton6', 'Bitchip');
-insert into websites (id, user_id, url, password, loginName, category) values (8, 1, 'https://bloomberg.com', '9zMKITicUl', 'ewhiteoak7', 'Tres-Zap');
-insert into websites (id, user_id, url, password, loginName, category) values (9, 6, 'https://prlog.org', 'aZiW20', 'cwhate8', 'Matsoft');
-insert into websites (id, user_id, url, password, loginName, category) values (10, 4, 'http://is.gd', 'DagpCmrKBhq', 'ycostell9', 'Domainer');
+insert into websites (id, user_id, url, password, loginName, category) values (1, 7, 'https://pbs.org', 'xzt8s9vyvIzm', 'imaseyk0', 'Job');
+insert into websites (id, user_id, url, password, loginName, category) values (2, 11, 'https://sohu.com', 'gd27QlMtu', 'rperot1', 'Opela');
+insert into websites (id, user_id, url, password, loginName, category) values (3, 6, 'http://t.co', 'B8ikqO1eKFi', 'chancox2', 'Stronghold');
+insert into websites (id, user_id, url, password, loginName, category) values (4, 9, 'http://chronoengine.com', 'V9LyqUg7R', 'thinkes3', 'Bamity');
+insert into websites (id, user_id, url, password, loginName, category) values (5, 11, 'http://oaic.gov.au', 'SfARIh9ckA', 'jdaintith4', 'Solarbreeze');
+insert into websites (id, user_id, url, password, loginName, category) values (6, 6, 'http://sfgate.com', 'gTREk12GDdd5', 'mgoatcher5', 'Konklab');
+insert into websites (id, user_id, url, password, loginName, category) values (7, 11, 'http://infoseek.co.jp', 'btnJ6O4I', 'ekett6', 'Trippledex');
+insert into websites (id, user_id, url, password, loginName, category) values (8, 11, 'https://over-blog.com', '4ibJTCZdX', 'vthunderman7', 'Temp');
+insert into websites (id, user_id, url, password, loginName, category) values (9, 7, 'https://creativecommons.org', 'yIlcLyLXF', 'fpye8', 'Konklux');
+insert into websites (id, user_id, url, password, loginName, category) values (10, 6, 'https://nsw.gov.au', 'CXboMS0679x0', 'hcastenda9', 'Konklux');
