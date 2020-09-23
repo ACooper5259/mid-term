@@ -38,15 +38,12 @@ const data = [
   });
 
   // Display Webiste Function
-
   const displayWebsites = function (websites) {
     for (const website of websites) {
       const item_created = createWebsiteElement(website);
       $('.websites-display').append(item_created);
     }
   }
-
-
 
   // Create Website Element
   const createWebsiteElement = function (websiteData) {
@@ -58,7 +55,6 @@ const data = [
         <div class="col credentials">${websiteData.category}</div>
       </div>`
     console.log(websiteData);
-
     return website
   }
 
@@ -79,8 +75,6 @@ const data = [
     });
   })
 
-
-
   $('#new-website').submit(function (ev) {
     ev.preventDefault();
     const formData = $('#new-website').serialize();
@@ -98,8 +92,6 @@ const data = [
       }
     })
   })
-
-
 
   $('#register-form').submit(function (ev) {
     ev.preventDefault();
@@ -135,6 +127,5 @@ const data = [
       }
     })
   })
-
 });
 
