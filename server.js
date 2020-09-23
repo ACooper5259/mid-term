@@ -68,16 +68,13 @@ app.get("/new", (req, res) => {
   if (req.session.userID) {
     db.query(`SELECT * FROM users WHERE id = $1;`, [req.session.userID])
       .then(data => {
-        const username = data.rows[0].username;
-        templateVars.username = username;
         if (!data.rows[0]) {
-          return res.render("websites", templateVars);
+          const username = data.rows[0].username;
+          templateVars.username = username;
         }
+        res.render("websites", templateVars);
       })
-  } else {
-    res.render("websites", templateVars);
   }
-  res.render("websites");
 });
 
 app.listen(PORT, () => {
