@@ -19,13 +19,6 @@ $(document).ready(function () {
   });
 
   // ////////////// DISPLAY WEBSITES \\\\\\\\\\\\\\\ \\
-const data = [
-  {'url': 'www.dffg.com',
-'loginName': 'asdf',
-'password': 'mnbv',
-'category': 'fun'}
-]
-
   $.ajax({
     url: '/websites/',
     method: 'GET',
@@ -45,9 +38,7 @@ const data = [
       const item_created = createWebsiteElement(website);
       $('.websites-display').append(item_created);
     }
-  }
-
-
+  };
 
   // Create Website Element
   const createWebsiteElement = function (websiteData) {
@@ -57,28 +48,38 @@ const data = [
         <div class="col credentials">${websiteData.loginname}</div>
         <div class="col credentials">${websiteData.password}</div>
         <div class="col credentials">${websiteData.category}</div>
+        <div>
+          <form id='edit-site'>
+            <button type="submit" class="btn btn-info">Edit</button>
+          </form>
+        </div>
+        <div>
+            <input type="hidden" id="websiteId" name="websiteId" value="${websiteData.id}" />
+            <button type="button" class="btn btn-danger" onClick="deleteWebsite(${websiteData.id})" id="website-${websiteData.id}" >Delete</button>
+        </div>
       </div>`
-    console.log(websiteData);
 
     return website
   }
 
-  $('.delete-site').click(function () {
-    const url_id = $(this).val();
-    console.log('what is url_id', url_id)
+
+  deleteWebsite = function(url_id) {
+    console.log('what is url_id', url_id);
 
     $.ajax({
       type: "DELETE",
-      url: '/url/' + url_id,
-      data: { _method: 'delete', _token: token },
+      url: '/websites/' + url_id,
+      data: { _method: 'delete' },
       success: function (data) {
-        console.log(data);
+        console.log('what is data',JSON.stringify(data));
       },
       error: function (data) {
         console.log('Error:', data);
       }
     });
-  })
+    return false;
+
+  }
 
 
       // POST the form for the new webistes
