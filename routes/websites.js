@@ -21,10 +21,7 @@ const getAllWebsites = function(guest_id, db) {
 const addWebsite = function(website, db) {
   const queryString = `insert into websites (user_id, url, password, loginName, category) values ($1, $2, $3, $4, $5);`;
 
-  const valueArray = [];
-  for (const key in website) {
-    valueArray.push(website[key]);
-  }
+  const valueArray = [website.userID, website.url, website.password, website.loginname, website.category];
 
   return db.query(queryString, valueArray)
     .then(data => data.rows)
@@ -47,13 +44,16 @@ module.exports = (db) => {
   });
 
   router.post('/', (req, res) => {
+    console.log("IN THE CORRECT POST REQUEST ROUTE\n")
     const newWebsite = req.body;
     console.log('Inside req.body',newWebsite);
-
+    const userID = req.session.userID;
+    newWebsite.userID = userID;
     addWebsite(newWebsite, db)
       .then(message => {
         return res.json( {message: "New information is saved"} );
       }).catch(err => {
+        console.log(err.message)
         return res
           .status(500)
           .json({ error: err.message });

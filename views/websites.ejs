@@ -33,6 +33,13 @@
         <button type="button" class="nav_button password-form">Add New Site</button>
         <button type="submit" class="nav_button">Logout </button>
       </nav>
+      <% if(!username) {%>
+        <div>Login or register first!!!</div>
+      <% } else { %>
+        <div>LOGGED IN AS: <%= username %></div>
+        <div>ORGANIZATION: <%= organization %></div>
+        <%  }  %>
+
 
     </header>
 
@@ -40,7 +47,12 @@
       <!-- image under header -->
       <div>
         <img src="./assets/smaller_hero.png" width="100%" alt="">
-      </div>
+        <% if(!username) {%>
+          <div>Login or register first!!!</div>
+        <% } else { %>
+          <div>LOGGED IN AS USER: <%= username %></div>
+          <%  }  %>
+        </div>
 
 
 <!-- Add new web-site form -->
@@ -56,7 +68,7 @@
         </div>
         <div class="form-group">
           <label>User Login Details</label>
-          <input type="text" class="form-control" name="loginName">
+          <input type="text" class="form-control" name="loginname">
         </div>
         <div class="form-group">
           <label>Password</label>

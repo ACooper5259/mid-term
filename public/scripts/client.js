@@ -1,8 +1,6 @@
-$(document).ready(function() {
-
-
+$(document).ready(function () {
   // submit the foam for the password generate function
-  $("#generate-password").on('submit',function(e) {
+  $("#generate-password").on('submit', function (e) {
     e.preventDefault();
     let numCheck = $(".number").is(":checked") ? "true" : "false";
     let lowercaseCheck = $(".lowercase").is(":checked") ? "true" : "false";
@@ -17,7 +15,7 @@ $(document).ready(function() {
     $(".lowercase").prop("checked", false);
     $(".uppercase").prop("checked", false);
     $(".special-characters").prop("checked", false);
-  } )
+  })
 
   // ////////////// DISPLAY WEBSITES \\\\\\\\\\\\\\\ \\
 
@@ -34,15 +32,12 @@ $(document).ready(function() {
   });
 
   // Display Webiste Function
-
   const displayWebsites = function (websites) {
     for (const website of websites) {
       const item_created = createWebsiteElement(website);
       $('.websites-display').append(item_created);
     }
   }
-
-
 
   // Create Website Element
   const createWebsiteElement = function (websiteData) {
@@ -55,8 +50,7 @@ $(document).ready(function() {
         <div class="col credentials"><button type="button"><img src="./assets/edit-icon.png"></button></div>
         <div class="col credentials"><button type="button"><img src="./assets/delete-icon.png"></button></div>
       </div>`
-      console.log(websiteData);
-
+    console.log(websiteData);
     return website
   }
 
@@ -74,23 +68,72 @@ $(document).ready(function() {
 
     $('.delete-site').click(function () {
     const url_id = $(this).val();
-    console.log('what is url_id',url_id)
+    console.log('what is url_id', url_id)
 
     $.ajax({
-        type: "DELETE",
-        url: '/url/' + url_id,
-        data: {_method: 'delete', _token :token},
-        success: function (data) {
-            console.log(data);
-        },
-        error: function (data) {
-            console.log('Error:', data);
-        }
+      type: "DELETE",
+      url: '/url/' + url_id,
+      data: { _method: 'delete', _token: token },
+      success: function (data) {
+        console.log(data);
+      },
+      error: function (data) {
+        console.log('Error:', data);
+      }
     });
   })
 
+  $('#new-website').submit(function (ev) {
+    ev.preventDefault();
+    const formData = $('#new-website').serialize();
+    $.ajax({
+      url: '/websites',
+      type: 'POST',
+      cache: false,
+      data: formData,
+      success: function (data) {
+        window.location='/new'
+        alert('Success!')
+      }
+      , error: function (textStatus, err) {
+        alert('text status ' + textStatus + ', err ' + err)
+      }
+    })
+  })
 
+  $('#register-form').submit(function (ev) {
+    ev.preventDefault();
+    const formData = $('#register-form').serialize();
+    $.ajax({
+      url: '/user',
+      type: 'POST',
+      cache: false,
+      data: formData,
+      success: function (data) {
+        window.location='/new'
+        alert('Success!')
+      }
+      , error: function (textStatus, err) {
+        alert('text status ' + textStatus + ', err ' + err)
+      }
+    })
+  })
 
-
+  $('#login-form').submit(function (ev) {
+    ev.preventDefault();
+    const formData = $('#login-form').serialize();
+    $.ajax({
+      url: '/user/login',
+      type: 'POST',
+      cache: false,
+      data: formData,
+      success: function (data) {
+        window.location='/new'
+      }
+      , error: function (textStatus, err) {
+        alert('text status ' + textStatus + ', err ' + err)
+      }
+    })
+  })
 });
 
