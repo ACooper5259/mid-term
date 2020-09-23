@@ -75,6 +75,13 @@ header {
   margin-top: 30px;
 }
 
+// New website form
+#new-website {
+  display: block;
+  padding-right: 25px;
+  color: $primary-blue;
+  font-family: $text-font;
+}
 
 
 // Generate password form
@@ -128,4 +135,15 @@ header {
   background-color: #ffffff;
   justify-content: center;
   border: solid;
+}
+
+// Footer
+
+footer {
+  text-align: center;
+  font-size: 11px;
+  background-color: $primary-blue;
+  color: #ffffff;
+  margin-top: 50px;
+  padding: 15px;
 }

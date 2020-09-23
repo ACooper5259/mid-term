@@ -52,6 +52,13 @@ $(document).ready(function() {
   webCheck();
 
   // ////////////// DISPLAY WEBSITES \\\\\\\\\\\\\\\ \\
+const data = [
+  {'url': 'www.dffg.com',
+'loginName': 'asdf',
+'password': 'mnbv',
+'category': 'fun'}
+]
+
   $.ajax({
     url: '/websites/',
     method: 'GET',
