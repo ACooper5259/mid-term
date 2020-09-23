@@ -63,19 +63,6 @@ const data = [
   }
 
   $('.delete-site').click(function () {
-
-      // POST the form for the new webistes
-//  $("#new-website").on('submit', function (event) {
-//   event.preventDefault();
-//   console.log(event)
-//   const serializedWebsiteForm= $(this).serialize();
-//   $.post('/websites/', serializedWebsiteForm)
-//     .then ((response) => {
-//     console.log(response)
-//       loadWebsites()
-//     })
-//   });
-
     const url_id = $(this).val();
     console.log('what is url_id', url_id)
 
@@ -91,6 +78,38 @@ const data = [
       }
     });
   })
+
+
+      // POST the form for the new webistes
+//  $("#new-website").on('submit', function (event) {
+//   event.preventDefault();
+//   console.log(event)
+//   const serializedWebsiteForm= $(this).serialize();
+//   $.post('/websites/', serializedWebsiteForm)
+//     .then ((response) => {
+//     console.log(response)
+//       loadWebsites()
+//     })
+//   });
+
+  $('#new-website').submit(function (ev) {
+    ev.preventDefault();
+    const formData = $('#new-website').serialize();
+    $.ajax({
+      url: '/websites',
+      type: 'POST',
+      cache: false,
+      data: formData,
+      success: function (data) {
+        window.location='/new'
+        alert('Success!')
+      }
+      , error: function (textStatus, err) {
+        alert('text status ' + textStatus + ', err ' + err)
+      }
+    })
+  })
+
 
 
   $('#register-form').submit(function (ev) {
