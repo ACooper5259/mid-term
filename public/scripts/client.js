@@ -93,7 +93,6 @@ const data = [
   })
 
 
-<<<<<<< HEAD
   $('#register-form').submit(function (ev) {
     ev.preventDefault();
     const formData = $('#register-form').serialize();
@@ -104,7 +103,7 @@ const data = [
       data: formData,
       success: function (data) {
         window.location='/new'
-        // alert('Success!')
+        alert('Success!')
       }
       , error: function (textStatus, err) {
         alert('text status ' + textStatus + ', err ' + err)
@@ -116,22 +115,18 @@ const data = [
     ev.preventDefault();
     const formData = $('#login-form').serialize();
     $.ajax({
-      url: '/user',
+      url: '/user/login',
       type: 'POST',
       cache: false,
       data: formData,
       success: function (data) {
         window.location='/new'
-        // alert('Success!')
       }
       , error: function (textStatus, err) {
         alert('text status ' + textStatus + ', err ' + err)
       }
     })
   })
-=======
-
->>>>>>> master
 
 });
 
