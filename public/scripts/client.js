@@ -71,12 +71,28 @@ $(document).ready(function () {
       url: '/websites/' + url_id,
       data: { _method: 'delete' },
       success: function (data) {
-        console.log('what is data',JSON.stringify(data));
+        console.log(data);
       },
       error: function (data) {
         console.log('Error:', data);
       }
     });
+
+    const $websitesDisplay = $('.row-cols-4');
+    $websitesDisplay.empty();
+
+    $.ajax({
+      url: '/websites/',
+      method: 'GET',
+      dataType: 'json',
+      success: (websites) => {
+        displayWebsites(websites.websites);
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    });
+
     return false;
 
   }
