@@ -33,6 +33,11 @@
         <button type="button" class="nav_button password-form">Get New Password</button>
         <button type="submit" class="nav_button">LOGIN</button>
       </nav>
+      <% if(!username) {%>
+        <div>Login or register first!!!</div>
+      <% } else { %>
+        <div>LOGGED IN AS USER: <%= username %></div>
+        <%  }  %>
     </header>
 
     <main>

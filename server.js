@@ -68,7 +68,8 @@ app.get("/new", (req, res) => {
   if (req.session.userID) {
     db.query(`SELECT * FROM users WHERE id = $1;`, [req.session.userID])
       .then(data => {
-        if (!data.rows[0]) {
+        console.log(data.rows)
+        if (data.rows[0]) {
           const username = data.rows[0].username;
           templateVars.username = username;
         }
