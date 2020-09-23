@@ -76,20 +76,21 @@ header {
 }
 
 // New website form
-#new-website {
-  display: block;
-  padding-right: 25px;
+
+#new-site-forms {
+  display: none;
   color: $primary-blue;
   font-family: $text-font;
+}
+
+#new-website {
+  padding-right: 25px;
 }
 
 
 // Generate password form
 #generate-password {
-  display: block;
   padding-left: 25px;
-  color: $primary-blue;
-  font-family: $text-font;
 }
 
 .your-password {
