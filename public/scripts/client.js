@@ -80,17 +80,6 @@ const data = [
   })
 
 
-      // POST the form for the new webistes
-//  $("#new-website").on('submit', function (event) {
-//   event.preventDefault();
-//   console.log(event)
-//   const serializedWebsiteForm= $(this).serialize();
-//   $.post('/websites/', serializedWebsiteForm)
-//     .then ((response) => {
-//     console.log(response)
-//       loadWebsites()
-//     })
-//   });
 
   $('#new-website').submit(function (ev) {
     ev.preventDefault();
