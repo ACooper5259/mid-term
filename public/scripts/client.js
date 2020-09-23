@@ -1,22 +1,4 @@
 $(document).ready(function() {
-  console.log('test')
-
-  const workCheck = () => {
-    $.ajax({
-      url: '/new',
-      method: 'GET',
-      dataType: 'json',
-      success: (posts) => {
-        console.log(posts);
-      },
-      error: (error) => {
-        console.error(error);
-      }
-    });
-  };
-
-  workCheck();
-
   // submit the foam for the password generate function
   $("#generate-password").on('submit',function(e) {
     e.preventDefault();
@@ -35,29 +17,12 @@ $(document).ready(function() {
     $(".special-characters").prop("checked", false);
   } )
 
-  const webCheck = () => {
-    $.ajax({
-      url: '/websites',
-      method: 'GET',
-      dataType: 'json',
-      success: (posts) => {
-        console.log(posts);
-      },
-      error: (error) => {
-        console.error(error);
-      }
-    });
-  };
-
-  webCheck();
-
   // ////////////// DISPLAY WEBSITES \\\\\\\\\\\\\\\ \\
   $.ajax({
     url: '/websites/',
     method: 'GET',
     dataType: 'json',
     success: (websites) => {
-      console.log('Checking websites',websites);
       displayWebsites(websites.websites);
     },
     error: (error) => {
@@ -65,12 +30,10 @@ $(document).ready(function() {
     }
   });
 
-
   // Display Webiste Function
 
   const displayWebsites = function (websites) {
     for (const website of websites) {
-      console.log (website)
       const item_created = createWebsiteElement(website);
       $('.websites-display').append(item_created);
     }
@@ -82,7 +45,7 @@ $(document).ready(function() {
   const createWebsiteElement = function (websiteData) {
     const website =  `
     <div  class="col-lg-6">
-      URL: ${websiteData.url}
+      URL: <a href= 'http://${websiteData.url}'> ${websiteData.url} </a>
       <div class="row">
         <div class="col-lg-3">
           Login id:
@@ -106,24 +69,40 @@ $(document).ready(function() {
         <div class="col-lg-3">
         ${websiteData.category}
         <br>
+        <form method="POST" action="/new/:id">
+            <td>
+              <button type="submit" class="btn btn-info">EDIT</button>
+            </td>
+          </form>
+          <form method="POST" action="/new/:id" class="delete-site">
+            <td>
+              <button type="submit" class="btn btn-danger">Delete</button>
+            </td>
+          </form>
         *************************************
         </div>
       </div>
     </div>`
-    console.log(websiteData);
 
     return website
   }
 
-  displayWebsites(data)
+  $('.delete-site').click(function () {
 
+    const url_id = $(this).val();
+    console.log('what is url_id',url_id)
 
-  // GET request for websites
-  const loadWebsites = () => {
-    $.get('/websites', (websites) => {
-      displayWebsites(websites);
+    $.ajax({
+        type: "DELETE",
+        url: '/url/' + url_id,
+        data: {_method: 'delete', _token :token},
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (data) {
+            console.log('Error:', data);
+        }
     });
-  };
-  loadWebsites()
+  })
 
 });

@@ -4,7 +4,7 @@ const router  = express.Router();
 
 const getAllWebsites = function(guest_id, db) {
   console.log('guest_id',guest_id);
-  const queryString = `SELECT users.email, websites.url, loginName, websites.password, category
+  const queryString = `SELECT users.email, websites.*
   FROM websites
   JOIN users ON websites.user_id = users.id
   WHERE user_id = $1
@@ -34,8 +34,6 @@ const addWebsite = function(website, db) {
 module.exports = (db) => {
   router.get('/', (req, res) => {
     const logedInUser = req.session.userID;
-    console.log('cookie',req.session.userID);
-    console.log('login user?',logedInUser);
     if (!logedInUser) {
       res.json({ error: "login first" });
       return;
