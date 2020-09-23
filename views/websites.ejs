@@ -46,35 +46,35 @@
       <form id='generate-password'>
         <h4>Create your new password here:</h4>
         <!-- user input area -->
-        <div class="form-row">
-          <div class="form-group col-md-4">
+        <!-- <div class="form-row"> -->
+          <div class="form-group">
             <label>How long will your password be?</label>
             <input type="number" class='length' name='length' placeholder ="length of password">
           </div>
-          <div class="form-group col-md-2">
-            <input type='checkbox' class='number' name='number'>
-            <label for=number> Need number? </label>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type='checkbox' class='number' name='number'>
+            <label class="form-check-label" for=number> Need number? </label>
           </div>
-          <div class="form-group col-md-2">
-            <input type='checkbox' class='lowercase' name='lowercase'>
-            <label for=lowercase> Need lowercase? </label>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input"type='checkbox' class='lowercase' name='lowercase'>
+            <label class="form-check-label" for=lowercase> Need lowercase? </label>
           </div>
-          <div class="form-group col-md-2">
-            <input type='checkbox' class='uppercase' name='uppercase'>
-            <label for=uppercase> Need uppercase? </label>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input"type='checkbox' class='uppercase' name='uppercase'>
+            <label class="form-check-label" for=uppercase> Need uppercase? </label>
           </div>
-          <div class="form-group col-md-2">
-            <input type='checkbox' class='special-characters' name='special-characters'>
-            <label for=special-characters> Need Special Characters? </label>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input"type='checkbox' class='special-characters' name='special-characters'>
+            <label class="form-check-label" for=special-characters> Need Special Characters? </label>
           </div>
-        </div>
+        <!-- </div> -->
         <!-- button -->
-        <div class="form-row">
+        <div class="form-row password-button">
           <button type="submit" class="btn btn-danger"> New Password! </button>
         </div>
         <br>
       <!-- password output area -->
-        <h5>Your new password is: </h5>
+        <h5 class="your-password">Your new password is: </h5>
         <output id="output" name="new-password" class="password" type="text"></output>
         <button type="button" id="copied" data-clipboard-target="#output" ><img src="./assets/copyClipboard@33.33x.png" class="copiedToClipboard"></button>
 
@@ -82,11 +82,19 @@
       </form>
 
       <!-- display websites and login credentials on db -->
-      <h4 class="credentials">My Credentials</h4>
-      <div  class="container">
-        <div class="row websites-display">
-        </div>
+      <h4>My Credentials</h4>
+
+      <div  class="container websites-display">
+
+        <div class="row row-cols-4">
+          <div class="col cred-columns">Website URL</div>
+          <div class="col cred-columns">Login Name</div>
+          <div class="col cred-columns">Password</div>
+          <div class="col cred-columns">Category</div>
+        </div><!-- <div class="row "></div> -->
       </div>
+      <!-- <div  class="container websites-display">
+      </div> -->
     </main>
 
 

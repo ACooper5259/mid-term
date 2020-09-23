@@ -73,34 +73,14 @@ $(document).ready(function() {
 
   // Create Website Element
   const createWebsiteElement = function (websiteData) {
-    const website =  `
-    <div  class="col-lg-6">
-      ${websiteData.url}
-      <div class="row">
-        <div class="col-lg-3">
-          Login id:
-        </div>
-        <div class="col-lg-3">
-          ${websiteData.loginName}
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-3">
-          Password:
-        </div>
-        <div class="col-lg-3">
-          ${websiteData.password}
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-3">
-          Category:
-        </div>
-        <div class="col-lg-3">
-        ${websiteData.category_id}
-        </div>
-      </div>
-    </div>`
+    const website =`
+      <div class="row row-cols-4">
+        <div class="col credentials">${websiteData.url}</div>
+        <div class="col credentials">${websiteData.loginName}</div>
+        <div class="col credentials">${websiteData.password}</div>
+        <div class="col credentials">${websiteData.category_id}</div>
+      </div>`
+
 
     return website
   }

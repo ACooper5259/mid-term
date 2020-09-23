@@ -85,12 +85,24 @@ header {
   font-family: $text-font;
 }
 
-#password-title h5 {
+.your-password {
   text-align: left;
+  display: inline-block;
+  font-weight: 300;
+  color: $primary-blue;
+  padding: unset;
 }
 
 .copiedToClipboard {
   height: 25px;
+}
+
+.form-check-label {
+  font-size: 0.9rem;
+}
+
+.password-button {
+  padding-top: 30px;
 }
 
 
@@ -98,7 +110,13 @@ header {
 // Credentials display area
 .credentials{
   text-align: center;
-  padding: 40px;
+  padding: 30px;
+  font-size: 0.75rem
+}
+
+.cred-columns{
+  text-align: center;
+  padding: 30px;
 }
 
 .websites-display {
@@ -106,7 +124,7 @@ header {
   color: $primary-blue;
   font-family: $text-font;
   font-size: 18px;
-  margin: 0 45px 45px 45px;
+  margin: auto;
   background-color: #ffffff;
   justify-content: center;
   border: solid;
