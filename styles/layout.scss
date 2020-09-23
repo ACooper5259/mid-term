@@ -6,12 +6,26 @@ $headings-font: 'Poppins', sans-serif;
 $text-font: 'Open Sans', sans-serif;
 
 
+
 body {
   background-color: #EEE;
 
   h4 {
     color: $primary-red;
     font-family: $headings-font;
+    text-align: center;
+    padding: 30px 0;
+  }
+  h5 {
+    color: $primary-red;
+    font-family: $headings-font;
+    text-align: center;
+    padding: 30px 0;
+  }
+  h6 {
+      color: $primary-red;
+      font-family: $headings-font;
+      text-align: left;
   }
 }
 
@@ -71,14 +85,15 @@ header {
   font-family: $text-font;
 }
 
-#generate-password h4 {
-  text-align: center;
-  padding: 30px 0;
+#password-title h5 {
+  text-align: left;
 }
 
 .copiedToClipboard {
   height: 25px;
 }
+
+
 
 // Credentials display area
 .credentials{
