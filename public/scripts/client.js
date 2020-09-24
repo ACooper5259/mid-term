@@ -150,6 +150,28 @@ $(document).ready(function () {
     });
   };
 
+  // Filter category
+  $('#category-filter').submit(function (e) {
+    e.preventDefault();
+    const formData = $('#category-filter').serialize();
+    const category = (formData.split("="))[1];
+    const categoryUrl = '/websites/' + category;
+    console.log('working?', categoryUrl);
+    $.ajax({
+      url: categoryUrl,
+      type: 'GET',
+      datatype: JSON,
+      success: function (websites) {
+        $(".row-cols-6").empty();
+        displayWebsites(websites.websites);
+      }
+      , error: function (textStatus, err) {
+        alert(textStatus.responseJSON.error)
+      }
+    })
+
+  });
+
   // Add new website for user
   $('#new-website').submit(function (ev) {
     ev.preventDefault();
@@ -166,7 +188,7 @@ $(document).ready(function () {
         alert(textStatus.responseJSON.error)
       }
     })
-  })
+  });
 
   $('#register-form').submit(function (ev) {
     ev.preventDefault();

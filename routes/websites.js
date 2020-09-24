@@ -23,6 +23,38 @@ const getAllWebsites = function(guest_id, db) {
   })
   .catch(err => { return console.log('query error:', err); })
 
+};
+
+const getCategory = function(user_id,category, db) {
+  const queryString = `SELECT users.email, websites.*
+  FROM websites
+  JOIN users ON websites.user_id = users.id
+  WHERE user_id = $1
+  AND category = $2
+  LIMIT 10;`;
+
+  return db.query(queryString, [user_id, category])
+  .then(data => {
+    return data.rows;
+  })
+  .catch(err => { return console.log('query error:', err); })
+
+};
+
+const getCustomCategory = function(user_id, db) {
+  const queryString = `SELECT users.email, websites.*
+  FROM websites
+  JOIN users ON websites.user_id = users.id
+  WHERE user_id = $1
+  AND category NOT IN ('Shopping', 'Education', 'Social Media', 'Information', 'Entertainment')
+  LIMIT 10;`;
+
+  return db.query(queryString, [user_id])
+  .then(data => {
+    return data.rows;
+  })
+  .catch(err => { return console.log('query error:', err); })
+
 }
 
 const addWebsite = function(website, db) {
@@ -36,6 +68,7 @@ const addWebsite = function(website, db) {
 }
 
 module.exports = (db) => {
+  //route for display all websites for user
   router.get('/', (req, res) => {
     const logedInUser = req.session.userID;
     if (!logedInUser) {
@@ -50,6 +83,41 @@ module.exports = (db) => {
     });
   });
 
+  //Route for filtering the websites by category
+  router.get('/:category', (req, res) => {
+    const categoryName = req.params.category;
+    console.log('category is ',categoryName)
+    const logedInUser = req.session.userID;
+
+    if(categoryName === 'All') {
+      getAllWebsites(logedInUser, db)
+      .then(websites => res.json({ websites }))
+      .catch(e => {
+        console.error('catch',e);
+        res.send(e)
+    });
+
+    } else if (categoryName === 'Custom') {
+      console.log('custom')
+      getCustomCategory(logedInUser, db)
+      .then(websites => res.json({ websites }))
+      .catch(e => {
+        console.error('catch',e);
+        res.send(e)
+      });
+
+    } else {
+      getCategory(logedInUser, categoryName, db)
+      .then(websites => res.json({ websites }))
+      .catch(e => {
+        console.error('catch',e);
+        res.send(e)
+      });
+    }
+
+  });
+
+  //Route for adding new website for user
   router.post('/', (req, res) => {
     const newWebsite = req.body;
     if(!hasAllRequiredParams(newWebsite)){
@@ -71,6 +139,7 @@ module.exports = (db) => {
 
   })
 
+  // Edit route for website
   router.patch('/:id', (req, res) => {
     const { url, password, loginname, category } = req.body;
     const queryString = `UPDATE websites SET url = $1, password = $2, loginName = $3, category = $4 WHERE id = $5;`;
@@ -85,6 +154,7 @@ module.exports = (db) => {
 
   });
 
+  //Route for delete website
   router.delete('/:id', (req, res) => {
     const query = 'DELETE FROM websites WHERE id = $1;';
     db.query(query, [req.params.id])
