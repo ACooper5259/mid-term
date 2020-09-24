@@ -167,11 +167,15 @@
 
       <!-- display websites and login credentials on db -->
       <div>
-        <h4>My Credentials</h4>
+
         <div class="container">
-        <form id="category-filter">
-          <div class="row align-items-center">
-            <div class="col-5">
+
+          <div class="row align-items-center d-flex justify-content-between">
+          <h4 id="credentials-title">My Credentials</h4>
+
+
+
+              <form id="category-filter">
           <label for="filtering">Choose category:</label>
           <select name="category" id="category">
             <option value="All">All</option>
@@ -181,12 +185,11 @@
             <option value="Information">Information</option>
             <option value="Entertainment">Entertainment</option>
             <option value="Custom">Custom</option>
-          </select></div>
-          <div class="col">
+          </select>
+
           <input class="btn btn-danger" type="submit" value="Submit">
-        </div>
-        </div>
         </form>
+      </div>
       </div>
       </div>
 

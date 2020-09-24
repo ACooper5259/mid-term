@@ -176,6 +176,10 @@ header {
   border: solid;
 }
 
+#credentials-title {
+  display: inline-block;
+}
+
 #category-filter {
   color: $primary-blue;
   font-family: $text-font;
