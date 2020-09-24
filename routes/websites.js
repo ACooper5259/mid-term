@@ -39,7 +39,7 @@ const getOrganizationId = function(userID, db){
 
 const getCompanyWebsites = function(organizationID, db) {
   const queryString = `
-  SELECT users.id as userID, organizations.name as organization, websites.password, websites.loginname, websites.url, websites.category
+  SELECT users.id as userID, organizations.name as organization, websites.id as site_id, websites.password, websites.loginname, websites.url, websites.category
   FROM users
   JOIN organizations ON organizations.id = users.organization_id
   JOIN websites ON websites.user_id = users.id

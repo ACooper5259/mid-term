@@ -40,6 +40,7 @@ $(document).ready(function () {
   const enableClipboards = (websiteID) => {
     const usernameButton = document.getElementById(`copy-login-button-${websiteID}`);
     const passwordButton = document.getElementById(`copy-password-button-${websiteID}`);
+    console.log(usernameButton)
     new ClipboardJS(passwordButton);
     new ClipboardJS(usernameButton);
   }
@@ -50,7 +51,7 @@ $(document).ready(function () {
       const item_created = createWebsiteElement(website);
 
       $('.websites-display').append(item_created);
-      enableClipboards(website.id)
+      enableClipboards(website.site_id)
     }
   };
 
@@ -62,21 +63,22 @@ $(document).ready(function () {
       <div class="row row-cols-6">
         <div class="col credentials"><a href="http://${websiteData.url}">${websiteData.url}</a></div>
         <div class="col credentials">
-          <output id="login-output-${websiteData.id}">${websiteData.loginname}</output>
-          <button type="button" id="copy-login-button-${websiteData.id}" data-clipboard-target="#login-output-${websiteData.id}" >
+          <output id="login-output-${websiteData.site_id}">${websiteData.loginname}</output>
+          <output id="org">${websiteData.organization}</output>
+          <button type="button" id="copy-login-button-${websiteData.site_id}" data-clipboard-target="#login-output-${websiteData.site_id}" >
             <img src="./assets/copyClipboard@33.33x.png" class="copiedToClipboard">
           </button>
          </div>
         <div class="col credentials">
-          <output id="password-output-${websiteData.id}">${websiteData.password}</output>
-          <button type="button" id="copy-password-button-${websiteData.id}" data-clipboard-target="#password-output-${websiteData.id}" class="clipboard-button" >
+          <output id="password-output-${websiteData.site_id}">${websiteData.password}</output>
+          <button type="button" id="copy-password-button-${websiteData.site_id}" data-clipboard-target="#password-output-${websiteData.site_id}" class="clipboard-button" >
             <img src="./assets/copyClipboard@33.33x.png" class="copiedToClipboard">
           </button>
         </div>
         <div class="col credentials">${websiteData.category}</div>
-        <div class="col credentials"><input type="hidden" id="websiteId" name="websiteId" value="${websiteData.id}" />
-        <button type="button" class="btn btn-info" onClick="createEdit(${websiteData.id})" ><img src="./assets/edit-icon.png"></button></div>
-        <div class="col credentials"><button type="button" class="btn btn-danger" onClick="deleteWebsite(${websiteData.id})" id="website-${websiteData.id}" ><img src="./assets/delete-icon.png"></button></div>
+        <div class="col credentials"><input type="hidden" id="websiteId" name="websiteId" value="${websiteData.site_id}" />
+        <button type="button" class="btn btn-info" onClick="createEdit(${websiteData.site_id})" ><img src="./assets/edit-icon.png"></button></div>
+        <div class="col credentials"><button type="button" class="btn btn-danger" onClick="deleteWebsite(${websiteData.site_id})" id="website-${websiteData.site_id}" ><img src="./assets/delete-icon.png"></button></div>
       </div>`
     console.log(websiteData);
 
