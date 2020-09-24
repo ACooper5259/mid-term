@@ -44,8 +44,8 @@ $(document).ready(function () {
     const website =`
       <div class="row row-cols-6">
         <div class="col credentials"><a href="http://${websiteData.url}">${websiteData.url}</a></div>
-        <div class="col credentials">${websiteData.loginname}</div>
-        <div class="col credentials">${websiteData.password}</div>
+        <div class="col credentials">${websiteData.loginname} <button type="button" id="copied" data-clipboard-target="#output" ><img src="./assets/copyClipboard@33.33x.png" class="copiedToClipboard"></button></div>
+        <div class="col credentials">${websiteData.password} <button type="button" id="copied" data-clipboard-target="#output" ><img src="./assets/copyClipboard@33.33x.png" class="copiedToClipboard"></button></div>
         <div class="col credentials">${websiteData.category}</div>
         <div class="col credentials"><button type="button"><img src="./assets/edit-icon.png"></button></div>
         <div class="col credentials"><button type="button"><img src="./assets/delete-icon.png"></button></div>
