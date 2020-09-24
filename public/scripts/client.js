@@ -52,7 +52,7 @@ $(document).ready(function () {
         <div class="col credentials">${websiteData.category}</div>
         <div>
         <input type="hidden" id="websiteId" name="websiteId" value="${websiteData.id}" />
-        <button type="button" class="btn btn-info" onClick="createEdit(${websiteData.id})" id="website-${websiteData.id}" >Edit</button>
+        <button type="button" class="btn btn-info" onClick="createEdit(${websiteData.id})" >Edit</button>
         </div>
         <div>
             <input type="hidden" id="websiteId" name="websiteId" value="${websiteData.id}" />
@@ -64,13 +64,82 @@ $(document).ready(function () {
   };
 
   // Create edit form
+
+
   createEdit = function(id) {
+    if ($('.edit-container').find('#edit-website-button')) {
+      $('#edit-form').empty();
+    }
     console.log('website id is',id)
-  }
+    const editScript = `
+      <form id="edit-website-button">
+        <h4>Edit Website Form</h4>
+        <p class= >Fill-in the fields and submit to save your credentials for a new site. You can use the pasword generator on the right, and the copy to clipboard button</p>
+        <div class="form-group">
+          <input type="hidden" id="websiteId" name="websiteId" value="${id}" />
+          <label>Change site URL</label>
+          <input type="text" class="form-control" name="url">
+        </div>
+        <div class="form-group">
+          <label>User Login Details</label>
+          <input type="text" class="form-control" name="loginname">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="text" class="form-control" name="password">
+        </div>
+        <div class="form-group">
+          <label>Website Category</label>
+          <input type="text" class="form-control" name="category">
+        </div>
+        <button type="submit" class="btn btn-danger" id="edit-submit-button"> UPDATE </button>
+      </form>`;
 
+      $('#edit-form').append(editScript);
+
+      $("#edit-website-button").submit(function (e) {
+        e.preventDefault();
+        const formData = $('#edit-website-button').serialize();
+        console.log('what is form Data', formData);
+        $.ajax({
+          url: '/websites/' + id,
+          type: 'PATCH',
+          cache: false,
+          data: formData,
+          success: function (data) {
+            console.log('success',data);
+            $('#edit-form').empty();
+
+            const $websitesDisplay = $('.row-cols-4');
+            $websitesDisplay.empty();
+
+            $.ajax({
+              url: '/websites/',
+              method: 'GET',
+              dataType: 'json',
+              success: (websites) => {
+                displayWebsites(websites.websites);
+              },
+              error: (error) => {
+                console.error(error);
+              }
+            });
+          }
+          , error: function (textStatus, err) {
+            alert('text status ' + textStatus + ', err ' + err)
+          }
+        })
+      })
+
+
+  };
+
+
+
+
+
+  // Delete Website
   deleteWebsite = function(url_id) {
-    console.log('what is url_id', url_id);
-
     $.ajax({
       type: "DELETE",
       url: '/websites/' + url_id,

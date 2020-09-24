@@ -64,10 +64,11 @@ module.exports = (db) => {
 
   router.patch('/:id', (req, res) => {
     console.log('what is req.body', req.body);
-    const { url, password, loginName, category } = req.body;
+    console.log('path', req.params.id)
+    const { url, password, loginname, category } = req.body;
     const queryString = `UPDATE websites SET url = $1, password = $2, loginName = $3, category = $4 WHERE id = $5;`;
 
-    db.query(queryString, [ url, password, loginName, category, req.params.id])
+    db.query(queryString, [ url, password, loginname, category, req.params.id])
       .then((response) => {
         res.json( { success: true, post: response.rows[0] });
       })
