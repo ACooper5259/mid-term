@@ -8,7 +8,7 @@ const getAllWebsites = function(guest_id, db) {
   FROM websites
   JOIN users ON websites.user_id = users.id
   WHERE user_id = $1
-  LIMIT 5;`;
+  LIMIT 10;`;
 
   return db.query(queryString, [guest_id])
   .then(data => {
@@ -59,14 +59,13 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
 
-
   })
 
-  router.patch('/:user_id', (req, res) => {
-    const { url, password, loginName, category_id, icon } = req.body;
-    const queryString = `UPDATE websites SET url = $1, password = $2, category_id = $3, icon = $4 WHERE user_id = $5;`;
+  router.patch('/:id', (req, res) => {
+    const { url, password, loginname, category } = req.body;
+    const queryString = `UPDATE websites SET url = $1, password = $2, loginName = $3, category = $4 WHERE id = $5;`;
 
-    db.query(queryString, [ url, password, loginName, category_id, icon, req.params.user_id])
+    db.query(queryString, [ url, password, loginname, category, req.params.id])
       .then((response) => {
         res.json( { success: true, post: response.rows[0] });
       })
