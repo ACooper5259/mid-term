@@ -54,18 +54,6 @@ $(document).ready(function () {
     return website
   }
 
-  displayWebsites(websites)
-
-  // GET request for websites
-  const loadWebsites = () => {
-    $.get('/websites', (websites) => {
-    displayWebsites(websites);
-  });
-  };
-  loadWebsites()
-
-
-
     $('.delete-site').click(function () {
     const url_id = $(this).val();
     console.log('what is url_id', url_id)
@@ -135,6 +123,23 @@ $(document).ready(function () {
       }
     })
   })
+
+  $('#logout-btn').click(function () {
+    $.ajax({
+      url: '/user/logout',
+      type: 'POST',
+      cache: false,
+      success: function (data) {
+        window.location='/new'
+      }
+      , error: function (textStatus, err) {
+        alert('text status ' + textStatus + ', err ' + err)
+      }
+    })  })
+
+    $('#login-btn-dynamic').click(function(){
+      window.location='/';
+   })
 
 });
 
