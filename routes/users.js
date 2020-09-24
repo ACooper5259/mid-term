@@ -154,7 +154,7 @@ module.exports = (db) => {
     if (!checkAllUserParamsExist(newUser)) {
       return res
         .status(422)
-        .json({ error: "Request is missing a field (username, email, password, organization_name)" });
+        .json({ error: "Please complete registration form" });
     }
 
     try {

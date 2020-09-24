@@ -185,7 +185,7 @@ $(document).ready(function () {
         alert('Success!')
       }
       , error: function (textStatus, err) {
-        alert('text status ' + textStatus + ', err ' + err)
+        alert(textStatus.responseJSON.error)
       }
     })
   });
@@ -202,7 +202,7 @@ $(document).ready(function () {
         window.location='/new'
       }
       , error: function (textStatus, err) {
-        alert('text status ' + textStatus + ', err ' + err)
+        alert(textStatus.responseJSON.message)
       }
     })
   });
