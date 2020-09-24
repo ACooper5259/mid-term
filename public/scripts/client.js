@@ -28,6 +28,8 @@ $(document).ready(function () {
     method: 'GET',
     dataType: 'json',
     success: (websites) => {
+      console.log(websites)
+
       displayWebsites(websites.websites);
     },
     error: (error) => {

@@ -22,7 +22,35 @@ const getAllWebsites = function(guest_id, db) {
     return data.rows;
   })
   .catch(err => { return console.log('query error:', err); })
+}
 
+const getOrganizationId = function(userID, db){
+  const queryString = `
+  SELECT organization_id
+  FROM users
+  WHERE id = $1
+  `;
+  return db.query(queryString, [userID])
+  .then(data => {
+    return data.rows[0].organization_id;
+  })
+  .catch(err => { return console.log('query error:', err); })
+}
+
+const getCompanyWebsites = function(organizationID, db) {
+  const queryString = `
+  SELECT users.id as userID, organizations.name as organization, websites.password, websites.loginname, websites.url, websites.category
+  FROM users
+  JOIN organizations ON organizations.id = users.organization_id
+  JOIN websites ON websites.user_id = users.id
+  WHERE organizations.id = $1;
+  `;
+  return db.query(queryString, [organizationID])
+  .then(data => {
+    console.log(data.rows)
+    return data.rows;
+  })
+  .catch(err => { return console.log('query error:', err); })
 }
 
 const addWebsite = function(website, db) {
@@ -42,12 +70,14 @@ module.exports = (db) => {
       res.json({ error: "login first" });
       return;
     }
-    getAllWebsites(logedInUser, db)
-    .then(websites => res.json({ websites }))
-    .catch(e => {
-      console.error('catch',e);
-      res.send(e)
-    });
+    getOrganizationId(logedInUser, db).then(orgID => {
+      getCompanyWebsites(orgID, db)
+      .then(websites => res.json({ websites }))
+      .catch(e => {
+        console.error('catch',e);
+        res.send(e)
+      });
+      })
   });
 
   router.post('/', (req, res) => {
