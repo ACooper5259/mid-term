@@ -195,11 +195,15 @@ module.exports = (db) => {
         return res
           .status(401)
           .json({ message: "Invalid credentials" });
+      }else{
+        return res
+          .status(401)
+          .json({ message: "Invalid credentials" });
       }
     } catch (e) {
       return res
         .status(500)
-        .json({ error: e.message });
+        .json({ message: e.message });
     }
   });
 
