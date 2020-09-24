@@ -86,7 +86,7 @@
 
             <div class="form-group">
               <label>Password</label>
-              <input type="text" class="form-control" name="password">
+              <input id="new-site-password-input" type="text" class="form-control" name="password">
             </div>
 
             <div class="form-group">
@@ -144,8 +144,8 @@
 
             <!-- password output area -->
             <h5 class="your-password">Your new password is: </h5>
-            <output id="output" name="new-password" class="password" type="text"></output>
-            <button type="button" id="copied" data-clipboard-target="#output" >
+            <output id="new-password-output" name="new-password" class="password" type="text"></output>
+            <button type="button" id="password-copy-button" data-clipboard-target="#output" >
               <img src="./assets/copyClipboard@33.33x.png" class="copiedToClipboard">
             </button>
           </form>
@@ -190,7 +190,7 @@
     <script type="text/javascript" src="/scripts/animate.js"></script>
     <!-- copy to clipboard script -->
     <script>
-      const btn = document.getElementById('copied');
+      const btn = document.getElementById('password-copy-button');
       const clipboard = new ClipboardJS(btn);
 
       clipboard.on('success', function(e) {
