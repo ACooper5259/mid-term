@@ -92,9 +92,9 @@ $(document).ready(function () {
     }
     console.log('website id is',id)
     const editScript = `
-      <form id="edit-website-button">
+    <form id="edit-website-button" class="mx-auto">
         <h4>Edit Website Form</h4>
-        <p class= >Fill-in the fields and submit to save your credentials for a new site. You can use the pasword generator on the right, and the copy to clipboard button</p>
+        <p class= >Fill-in the fields and click update to save your new credentials for a new site. You can use the pasword generator, and the copy to clipboard button</p>
         <div class="form-group">
           <input type="hidden" id="websiteId" name="websiteId" value="${id}" />
           <label>Change site URL</label>
@@ -112,7 +112,7 @@ $(document).ready(function () {
           <label>Website Category</label>
           <input type="text" class="form-control" name="category">
         </div>
-        <button type="submit" class="btn btn-danger" id="edit-submit-button"> UPDATE </button>
+        <button type="submit" class="btn btn-danger" id="edit-submit-button"> Update </button>
       </form>`;
 
       $('#edit-form').append(editScript);
