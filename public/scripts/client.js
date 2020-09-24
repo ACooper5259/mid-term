@@ -35,21 +35,42 @@ $(document).ready(function () {
     }
   });
 
+  const enableClipboards = (websiteID) => {
+    const usernameButton = document.getElementById(`copy-login-button-${websiteID}`);
+    const passwordButton = document.getElementById(`copy-password-button-${websiteID}`);
+    new ClipboardJS(passwordButton);
+    new ClipboardJS(usernameButton);
+  }
+
   // Display Webiste Function
   const displayWebsites = function (websites) {
     for (const website of websites) {
       const item_created = createWebsiteElement(website);
+
       $('.websites-display').append(item_created);
+      enableClipboards(website.id)
     }
   };
+
+
 
   // Create Website Element
   const createWebsiteElement = function (websiteData) {
     const website =`
       <div class="row row-cols-6">
-        <div class="col credentials website-url"><a href="http://${websiteData.url}">${websiteData.url}</a></div>
-        <div class="col credentials">${websiteData.loginname} <button type="button" id="copied" data-clipboard-target="#output" ><img src="./assets/copyClipboard@33.33x.png" class="copiedToClipboard"></button></div>
-        <div class="col credentials">${websiteData.password} <button type="button" id="copied" data-clipboard-target="#output" ><img src="./assets/copyClipboard@33.33x.png" class="copiedToClipboard"></button></div>
+        <div class="col credentials"><a href="http://${websiteData.url}">${websiteData.url}</a></div>
+        <div class="col credentials">
+          <output id="login-output-${websiteData.id}">${websiteData.loginname}</output>
+          <button type="button" id="copy-login-button-${websiteData.id}" data-clipboard-target="#login-output-${websiteData.id}" >
+            <img src="./assets/copyClipboard@33.33x.png" class="copiedToClipboard">
+          </button>
+         </div>
+        <div class="col credentials">
+          <output id="password-output-${websiteData.id}">${websiteData.password}</output>
+          <button type="button" id="copy-password-button-${websiteData.id}" data-clipboard-target="#password-output-${websiteData.id}" class="clipboard-button" >
+            <img src="./assets/copyClipboard@33.33x.png" class="copiedToClipboard">
+          </button>
+        </div>
         <div class="col credentials">${websiteData.category}</div>
         <div class="col credentials"><input type="hidden" id="websiteId" name="websiteId" value="${websiteData.id}" />
         <button type="button" class="btn btn-info" onClick="createEdit(${websiteData.id})" ><img src="./assets/edit-icon.png"></button></div>

@@ -3,7 +3,6 @@ const express = require('express');
 const router  = express.Router();
 
 const hasAllRequiredParams = (website) => {
-  console.log(website)
   if (website.url && website.password && website.loginname && website.category) {
     return true;
   }
