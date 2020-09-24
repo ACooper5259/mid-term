@@ -46,7 +46,8 @@ header {
   justify-content: space-around;
   width: 100%;
   align-content: center;
-  padding-top: 75px;
+  padding-top: 55px;
+  height: 100%;
 }
 
 #mainnav-home {
@@ -72,7 +73,8 @@ header {
   display: inline-block;
   color: $primary-red;
   position: absolute;
-  top: 15px;
+  top: 7px;
+  height: 80px;
 }
 .nav_button:hover, .nav_button-home:hover {
   background-color: $primary-red;
@@ -141,13 +143,19 @@ header {
   padding-top: 30px;
 }
 
-
+// Edit website form
+#edit-form {
+    color: $primary-blue;
+    font-family: $text-font;
+}
 
 // Credentials display area
+
 .credentials{
   text-align: center;
   padding: 30px;
   font-size: 16px;
+  word-wrap: break-word;
 }
 
 .cred-columns{
