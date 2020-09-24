@@ -64,7 +64,6 @@ $(document).ready(function () {
         <div class="col credentials"><a id="url-${websiteData.site_id}" href="http://${websiteData.url}">${websiteData.url}</a></div>
         <div class="col credentials">
           <output id="login-output-${websiteData.site_id}">${websiteData.loginname}</output>
-          <output id="org">${websiteData.organization}</output>
           <button type="button" id="copy-login-button-${websiteData.site_id}" data-clipboard-target="#login-output-${websiteData.site_id}" >
             <img src="./assets/copyClipboard@33.33x.png" class="copiedToClipboard">
           </button>
