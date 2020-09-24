@@ -49,6 +49,14 @@ header {
   padding-top: 75px;
 }
 
+#mainnav-home {
+  display: flex;
+  justify-content: space-around;
+  width: 40%;
+  align-content: center;
+  padding-top: 75px;
+}
+
 #hero img{
   height: 600px;
   width: 100%;
@@ -66,11 +74,21 @@ header {
   position: absolute;
   top: 15px;
 }
-
-.nav_button:hover {
+.nav_button:hover, .nav_button-home:hover {
   background-color: $primary-red;
   color: #ffffff;
 }
+
+.nav_button-home {
+  border: none;
+  background-color: inherit;
+  padding: 14px 28px ;
+  font-size: 16px;
+  cursor: pointer;
+  display: inline-block;
+  color: $primary-red;
+}
+
 
 #login {
   font-weight: 600;

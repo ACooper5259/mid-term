@@ -209,7 +209,7 @@ $(document).ready(function () {
       type: 'POST',
       cache: false,
       success: function (data) {
-        window.location='/new'
+        window.location='/'
       }
       , error: function (textStatus, err) {
         alert('text status ' + textStatus + ', err ' + err)
