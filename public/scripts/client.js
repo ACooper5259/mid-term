@@ -125,8 +125,21 @@ $(document).ready(function () {
   })
 
   $('#logout-btn').click(function () {
-    alert("button");
-  })
+    $.ajax({
+      url: '/user/logout',
+      type: 'POST',
+      cache: false,
+      success: function (data) {
+        window.location='/new'
+      }
+      , error: function (textStatus, err) {
+        alert('text status ' + textStatus + ', err ' + err)
+      }
+    })  })
+
+    $('#login-btn-dynamic').click(function(){
+      window.location='/';
+   })
 
 });
 

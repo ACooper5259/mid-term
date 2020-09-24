@@ -30,16 +30,13 @@
       <div id="logo" class="container-fluid"><img src="./assets/1x/logo.png" alt="keyboard visual with padlock graphics"></div>
 
       <nav id="mainnav" class="container-fluid">
+        <% if(username) {%>
         <button type="button" class="nav_button password-form">Add New Site</button>
-        <button type="submit" class="nav_button">Logout </button>
+        <button id="logout-btn" type="submit" class="nav_button">Logout </button>
+        <% } else { %>
+        <button id="login-btn-dynamic" type="submit" class="nav_button">Login </button>
+        <% } %>
       </nav>
-      <% if(!username) {%>
-        <div>Login or register first!!!</div>
-      <% } else { %>
-        <div>LOGGED IN AS: <%= username %></div>
-        <div>ORGANIZATION: <%= organization %></div>
-        <%  }  %>
-
 
     </header>
 
@@ -51,6 +48,7 @@
           <div>Login or register first!!!</div>
         <% } else { %>
           <div>LOGGED IN AS USER: <%= username %></div>
+          <div>ORGANIZATION: <%= organization %></div>
           <%  }  %>
         </div>
 
