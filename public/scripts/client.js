@@ -54,18 +54,6 @@ $(document).ready(function () {
     return website
   }
 
-  displayWebsites(websites)
-
-  // GET request for websites
-  const loadWebsites = () => {
-    $.get('/websites', (websites) => {
-    displayWebsites(websites);
-  });
-  };
-  loadWebsites()
-
-
-
     $('.delete-site').click(function () {
     const url_id = $(this).val();
     console.log('what is url_id', url_id)
@@ -135,5 +123,10 @@ $(document).ready(function () {
       }
     })
   })
+
+  $('#logout-btn').click(function () {
+    alert("button");
+  })
+
 });
 
