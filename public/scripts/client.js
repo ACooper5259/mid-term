@@ -1,9 +1,7 @@
 $(document).ready(function () {
 
   $("#password-copy-button").click(function(){
-    console.log($('#output').text());
     $('#new-site-password-input').val($('#new-password-output').text())
-    console.log("CLICKED COPY BUTTON")
   })
   // submit the foam for the password generate function
   $("#generate-password").on('submit', function (e) {
