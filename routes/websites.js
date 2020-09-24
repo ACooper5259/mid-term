@@ -2,6 +2,14 @@ const { response } = require('express');
 const express = require('express');
 const router  = express.Router();
 
+const hasAllRequiredParams = (website) => {
+  console.log(website)
+  if (website.userID && website.url && website.password && website.loginname && website.category) {
+    return true;
+  }
+  return false;
+}
+
 const getAllWebsites = function(guest_id, db) {
   console.log('guest_id',guest_id);
   const queryString = `SELECT users.email, websites.*
@@ -44,9 +52,12 @@ module.exports = (db) => {
   });
 
   router.post('/', (req, res) => {
-    console.log("IN THE CORRECT POST REQUEST ROUTE\n")
     const newWebsite = req.body;
-    console.log('Inside req.body',newWebsite);
+    if(!hasAllRequiredParams(newWebsite)){
+      return res
+      .status(500)
+      .json({ error: "Form incomplete" });
+    }
     const userID = req.session.userID;
     newWebsite.userID = userID;
     addWebsite(newWebsite, db)
