@@ -4,7 +4,7 @@ const router  = express.Router();
 
 const hasAllRequiredParams = (website) => {
   console.log(website)
-  if (website.userID && website.url && website.password && website.loginname && website.category) {
+  if (website.url && website.password && website.loginname && website.category) {
     return true;
   }
   return false;
@@ -56,7 +56,7 @@ module.exports = (db) => {
     if(!hasAllRequiredParams(newWebsite)){
       return res
       .status(500)
-      .json({ error: "Form incomplete" });
+      .json({ error: "Please fill out all inputs of the new site form" });
     }
     const userID = req.session.userID;
     newWebsite.userID = userID;

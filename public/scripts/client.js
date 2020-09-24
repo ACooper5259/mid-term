@@ -136,10 +136,9 @@ $(document).ready(function () {
       data: formData,
       success: function (data) {
         window.location='/new'
-        alert('Success!')
       }
       , error: function (textStatus, err) {
-        alert('text status ' + textStatus + ', err ' + err)
+        alert(textStatus.responseJSON.error)
       }
     })
   })
