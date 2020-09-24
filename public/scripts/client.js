@@ -70,10 +70,9 @@ $(document).ready(function () {
         </div>
         </div>
       <div class="row row-cols-6">
-        <div class="col credentials"><a href="http://${websiteData.url}">${websiteData.url}</a></div>
+        <div class="col credentials"><a id="url-${websiteData.site_id}" href="http://${websiteData.url}">${websiteData.url}</a></div>
         <div class="col credentials">
           <output id="login-output-${websiteData.site_id}">${websiteData.loginname}</output>
-
           <button type="button" id="copy-login-button-${websiteData.site_id}" data-clipboard-target="#login-output-${websiteData.site_id}" >
             <img src="./assets/copyClipboard@33.33x.png" class="copiedToClipboard">
           </button>
@@ -84,7 +83,7 @@ $(document).ready(function () {
             <img src="./assets/copyClipboard@33.33x.png" class="copiedToClipboard">
           </button>
         </div>
-        <div class="col credentials">${websiteData.category}</div>
+        <div id="category-${websiteData.site_id}" class="col credentials">${websiteData.category}</div>
         <div class="col credentials"><input type="hidden" id="websiteId" name="websiteId" value="${websiteData.site_id}" />
         <button type="button" class="btn btn-info" onClick="createEdit(${websiteData.site_id})" ><img src="./assets/edit-icon.png"></button></div>
         <div class="col credentials"><button type="button" class="btn btn-danger" onClick="deleteWebsite(${websiteData.site_id})" id="website-${websiteData.site_id}" ><img src="./assets/delete-icon.png"></button></div>
@@ -107,19 +106,19 @@ $(document).ready(function () {
         <div class="form-group">
           <input type="hidden" id="websiteId" name="websiteId" value="${id}" />
           <label>Change site URL</label>
-          <input type="text" class="form-control" name="url">
+          <input id="edit-form-url" type="text" class="form-control" name="url">
         </div>
         <div class="form-group">
           <label>User Login Details</label>
-          <input type="text" class="form-control" name="loginname">
+          <input id="edit-form-username" type="text" class="form-control" name="loginname">
         </div>
         <div class="form-group">
           <label>Password</label>
-          <input type="text" class="form-control" name="password">
+          <input id="edit-form-password" type="text" class="form-control" name="password">
         </div>
         <div class="form-group">
           <label>Website Category</label>
-          <input type="text" class="form-control" name="category">
+          <input id="edit-form-category" type="text" class="form-control" name="category">
         </div>
         <button type="submit" class="btn btn-danger" id="edit-submit-button"> Update </button>
       </form>`;
@@ -145,6 +144,11 @@ $(document).ready(function () {
           }
         })
       })
+      $('#edit-form-url').val($(`#url-${id}`).text())
+      $('#edit-form-username').val($(`#login-output-${id}`).text())
+      $('#edit-form-password').val($(`#password-output-${id}`).text())
+      $('#edit-form-category').val($(`#category-${id}`).text())
+
   };
 
   // Delete Website
