@@ -168,35 +168,31 @@
       <!-- display websites and login credentials on db -->
       <div>
         <h4>My Credentials</h4>
+        <div class="container">
         <form id="category-filter">
+          <div class="row align-items-center">
+            <div class="col-5">
           <label for="filtering">Choose category:</label>
           <select name="category" id="category">
             <option value="All">All</option>
             <option value="Shopping">Shopping</option>
-            <option value="Education">Educaiton</option>
+            <option value="Education">Education</option>
             <option value="Social Media">Social Media</option>
             <option value="Information">Information</option>
             <option value="Entertainment">Entertainment</option>
             <option value="Custom">Custom</option>
-          </select>
-          <br><br>
-          <input type="submit" value="Submit">
+          </select></div>
+          <div class="col">
+          <input class="btn btn-danger" type="submit" value="Submit">
+        </div>
+        </div>
         </form>
+      </div>
       </div>
 
       <div  class="container websites-display">
 
-        <div class="row row-cols-6">
-          <div class="col cred-columns">Website URL</div>
-          <div class="col cred-columns">Login Name</div>
-          <div class="col cred-columns">Password</div>
-          <div class="col cred-columns">Category</div>
-          <div class="col cred-columns">Edit </div>
-          <div class="col cred-columns">Delete</div>
-        </div><!-- <div class="row "></div> -->
-      </div>
-      <!-- <div  class="container websites-display">
-      </div> -->
+        </div>
     </main>
 
 
