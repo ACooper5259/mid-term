@@ -31,6 +31,8 @@ $(document).ready(function () {
     }
   });
 
+
+
   // Display Webiste Function
 
   const displayWebsites = function (websites) {
@@ -49,9 +51,8 @@ $(document).ready(function () {
         <div class="col credentials">${websiteData.password}</div>
         <div class="col credentials">${websiteData.category}</div>
         <div>
-          <form id='edit-site'>
-            <button type="submit" class="btn btn-info">Edit</button>
-          </form>
+        <input type="hidden" id="websiteId" name="websiteId" value="${websiteData.id}" />
+        <button type="button" class="btn btn-info" onClick="createEdit(${websiteData.id})" id="website-${websiteData.id}" >Edit</button>
         </div>
         <div>
             <input type="hidden" id="websiteId" name="websiteId" value="${websiteData.id}" />
@@ -60,8 +61,12 @@ $(document).ready(function () {
       </div>`
 
     return website
-  }
+  };
 
+  // Create edit form
+  createEdit = function(id) {
+    console.log('website id is',id)
+  }
 
   deleteWebsite = function(url_id) {
     console.log('what is url_id', url_id);
@@ -95,7 +100,9 @@ $(document).ready(function () {
 
     return false;
 
-  }
+  };
+
+
 
 
       // POST the form for the new webistes

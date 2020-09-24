@@ -86,19 +86,19 @@
             <input type="number" class='length' name='length' placeholder ="length of password">
           </div>
           <div class="form-check">
-            <input class="form-check-input" type='checkbox' id='number' name='number'>
+            <input class="form-check-input" type='checkbox' class='number' name='number'>
             <label class="form-check-label" for=number> Need number? </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input"type='checkbox' id='lowercase' name='lowercase'>
+            <input class="form-check-input"type='checkbox' class='lowercase' name='lowercase'>
             <label class="form-check-label" for=lowercase> Need lowercase? </label>
           </div>
           <div class="form-check ">
-            <input class="form-check-input"type='checkbox' id='uppercase' name='uppercase'>
+            <input class="form-check-input"type='checkbox' class='uppercase' name='uppercase'>
             <label class="form-check-label" for=uppercase> Need uppercase? </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input"type='checkbox' id='special-characters' name='special-characters'>
+            <input class="form-check-input"type='checkbox' class='special-characters' name='special-characters'>
             <label class="form-check-label" for=special-characters> Need Special Characters? </label>
           </div>
         <!-- </div> -->
@@ -115,6 +115,77 @@
     </div>
 </div>
 </div>
+
+<!-- Edit web-site form -->
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+      <form id="new-website">
+        <h4>Edit Website Form</h4>
+        <p class= >Fill-in the fields and submit to save your credentials for a new site. You can use the pasword generator on the right, and the copy to clipboard button</p>
+        <div class="form-group">
+          <label>Change site URL</label>
+          <input type="text" class="form-control" name="url">
+        </div>
+        <div class="form-group">
+          <label>User Login Details</label>
+          <input type="text" class="form-control" name="loginname">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="text" class="form-control" name="password">
+        </div>
+        <div class="form-group">
+          <label>Website Category</label>
+          <input type="text" class="form-control" name="category">
+        </div>
+        <button id="new-website-button" type="submit" class="btn btn-danger"> Submit </button>
+      </form>
+    </div>
+
+
+      <!-- generate new password form -->
+<div class="col-6">
+      <form id='generate-password'>
+        <h4>Create your new password here:</h4>
+        <!-- user input area -->
+        <!-- <div class="form-row"> -->
+          <div class="form-group">
+            <label>How long will your password be?</label>
+            <input type="number" class='length' name='length' placeholder ="length of password">
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type='checkbox' class='number' name='number'>
+            <label class="form-check-label" for=number> Need number? </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input"type='checkbox' class='lowercase' name='lowercase'>
+            <label class="form-check-label" for=lowercase> Need lowercase? </label>
+          </div>
+          <div class="form-check ">
+            <input class="form-check-input"type='checkbox' class='uppercase' name='uppercase'>
+            <label class="form-check-label" for=uppercase> Need uppercase? </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input"type='checkbox' class='special-characters' name='special-characters'>
+            <label class="form-check-label" for=special-characters> Need Special Characters? </label>
+          </div>
+        <!-- </div> -->
+        <!-- button -->
+        <div class="form-row password-button">
+          <button type="submit" class="btn btn-danger"> New Password! </button>
+        </div>
+        <br>
+      <!-- password output area -->
+        <h5 class="your-password">Your new password is: </h5>
+        <output id="output" name="new-password" class="password" type="text"></output>
+        <button type="button" id="copied" data-clipboard-target="#output" ><img src="./assets/copyClipboard@33.33x.png" class="copiedToClipboard"></button>
+      </form>
+    </div>
+</div>
+</div>
+
+
       <!-- display websites and login credentials on db -->
       <h4>My Credentials</h4>
 
