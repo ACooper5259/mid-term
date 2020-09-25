@@ -170,7 +170,7 @@ $(document).ready(function () {
       type: 'GET',
       datatype: JSON,
       success: function (websites) {
-        $(".row-cols-6").empty();
+        $(".websites-display").empty();
         displayWebsites(websites.websites);
       }
       , error: function (textStatus, err) {
