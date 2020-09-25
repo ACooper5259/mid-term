@@ -164,6 +164,19 @@ header {
   opacity: 0.8;
 
 }
+#credentials-headings {
+    margin-bottom: 0;
+    text-align: left;
+    color: $primary-blue;
+    font-family: $text-font;
+    font-size: 18px;
+    margin: auto;
+    background-color: #ffffff;
+    justify-content: center;
+    border-top: solid;
+    border-left: solid;
+    border-right: solid;
+}
 
 .websites-display {
   text-align: left;
