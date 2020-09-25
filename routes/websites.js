@@ -69,19 +69,23 @@ const getCategory = function(user_id,category, db) {
 
 };
 
-const getCustomCategory = function(user_id, db) {
-  const queryString = `SELECT users.email, websites.*
-  FROM websites
-  JOIN users ON websites.user_id = users.id
-  WHERE user_id = $1
-  AND category NOT IN ('Shopping', 'Education', 'Social Media', 'Information', 'Entertainment')
-  LIMIT 10;`;
-
-  return db.query(queryString, [user_id])
+const getCustomCategory = function(organizationID, db) {
+  const queryString = `
+  SELECT users.id as userID, organizations.name as organization, websites.id as site_id, websites.password, websites.loginname, websites.url, websites.category
+  FROM users
+  JOIN organizations ON organizations.id = users.organization_id
+  JOIN websites ON websites.user_id = users.id
+  WHERE organizations.id = $1
+  AND category NOT IN ('Shopping', 'Education', 'Social Media', 'Information', 'Entertainment');
+  `;
+  return db.query(queryString, [organizationID])
   .then(data => {
+    console.log(data.rows)
     return data.rows;
   })
   .catch(err => { return console.log('query error:', err); })
+
+
 
 }
 
@@ -120,32 +124,46 @@ module.exports = (db) => {
     const logedInUser = req.session.userID;
 
     if(categoryName === 'All') {
-      getAllWebsites(logedInUser, db)
-      .then(websites => res.json({ websites }))
-      .catch(e => {
-        console.error('catch',e);
-        res.send(e)
-    });
-
+      getOrganizationId(logedInUser, db).then(orgID => {
+        getCompanyWebsites(orgID, db)
+        .then(websites => res.json({ websites }))
+        .catch(e => {
+          console.error('catch',e);
+          res.send(e)
+        });
+        })
     } else if (categoryName === 'Custom') {
       console.log('custom')
-      getCustomCategory(logedInUser, db)
-      .then(websites => res.json({ websites }))
-      .catch(e => {
-        console.error('catch',e);
-        res.send(e)
-      });
-
+      getOrganizationId(logedInUser, db).then(orgID => {
+        getCustomCategory(orgID, db)
+        .then(websites => res.json({ websites }))
+        .catch(e => {
+          console.error('catch',e);
+          res.send(e)
+        });
+      })
     } else {
-      getCategory(logedInUser, categoryName, db)
-      .then(websites => res.json({ websites }))
-      .catch(e => {
-        console.error('catch',e);
-        res.send(e)
-      });
+      getOrganizationId(logedInUser, db).then(orgID => {
+        getCompanyWebsites(orgID, db)
+        .then(websites => {
+          const checkCategory = (site) => {
+            return site.category === categoryName
+          }
+          const filteredSites = websites.filter(checkCategory);
+          res.json({ websites: filteredSites })
+        });
+        }).catch(e => {
+          console.error('catch',e);
+          res.send(e)
+        });
     }
-
   });
+
+
+
+
+
+
 
   //Route for adding new website for user
   router.post('/', (req, res) => {
