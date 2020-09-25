@@ -1,11 +1,9 @@
 $(document).ready(function () {
+  const $form = $('#new-site-forms');
+  $form.hide()
+
   function compose() {
-    const generatePassword = document.getElementById("new-site-forms");
-    if (generatePassword.style.display === "block") {
-      generatePassword.style.display = "none";
-    } else {
-      generatePassword.style.display = "block";
-    }
+    $form.slideToggle('slow');
   }
 
   const passwordButton = document.getElementsByClassName("password-form");
