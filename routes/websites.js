@@ -118,7 +118,6 @@ module.exports = (db) => {
   //Route for filtering the websites by category
   router.get('/:category', (req, res) => {
     const categoryName = req.params.category;
-    console.log('category is ',categoryName)
     const logedInUser = req.session.userID;
 
     if(categoryName === 'All') {

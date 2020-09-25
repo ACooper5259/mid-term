@@ -28,8 +28,6 @@ $(document).ready(function () {
     method: 'GET',
     dataType: 'json',
     success: (websites) => {
-      console.log(websites)
-
       displayWebsites(websites.websites);
     },
     error: (error) => {
@@ -40,7 +38,6 @@ $(document).ready(function () {
   const enableClipboards = (websiteID) => {
     const usernameButton = document.getElementById(`copy-login-button-${websiteID}`);
     const passwordButton = document.getElementById(`copy-password-button-${websiteID}`);
-    console.log(usernameButton)
     new ClipboardJS(passwordButton);
     new ClipboardJS(usernameButton);
   }
@@ -79,8 +76,7 @@ $(document).ready(function () {
         <div class="col credentials"><input type="hidden" id="websiteId" name="websiteId" value="${websiteData.site_id}" />
         <button type="button" class="btn btn-info" onClick="createEdit(${websiteData.site_id})" ><img src="./assets/edit-icon.png"></button></div>
         <div class="col credentials"><button type="button" class="btn btn-danger" onClick="deleteWebsite(${websiteData.site_id})" id="website-${websiteData.site_id}" ><img src="./assets/delete-icon.png"></button></div>
-      </div>`
-    console.log(websiteData);
+      </div>`;
 
     return website
   };
@@ -89,8 +85,7 @@ $(document).ready(function () {
   createEdit = function(id) {
     if ($('.edit-container').find('#edit-website-button')) {
       $('#edit-form').empty();
-    }
-    console.log('website id is',id)
+    };
     const editScript = `
     <form id="edit-website-button" class="mx-auto">
         <h4>Edit Website Form</h4>
@@ -120,7 +115,6 @@ $(document).ready(function () {
       $("#edit-website-button").submit(function (e) {
         e.preventDefault();
         const formData = $('#edit-website-button').serialize();
-        console.log('what is form Data', formData);
         $.ajax({
           url: '/websites/' + id,
           type: 'PATCH',
@@ -165,7 +159,6 @@ $(document).ready(function () {
     const formData = $('#category-filter').serialize();
     const category = (formData.split("="))[1];
     const categoryUrl = '/websites/' + category;
-    console.log('working?', categoryUrl);
     $.ajax({
       url: categoryUrl,
       type: 'GET',
