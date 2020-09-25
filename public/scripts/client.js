@@ -57,25 +57,25 @@ $(document).ready(function () {
   // Create Website Element
   const createWebsiteElement = function (websiteData) {
     const website =`
-      <div class="row row-cols-6">
-        <div class="col credentials">${websiteData.email}</div>
-        <div class="col credentials"><a id="url-${websiteData.site_id}" href="http://${websiteData.url}">${websiteData.url}</a></div>
-        <div class="col credentials">
+      <div class="row">
+        <div class="col-2 credentials">${websiteData.email}</div>
+        <div class="col-2 credentials"><a id="url-${websiteData.site_id}" href="http://${websiteData.url}">${websiteData.url}</a></div>
+        <div class="col-2 credentials">
           <output id="login-output-${websiteData.site_id}">${websiteData.loginname}</output>
           <button type="button" id="copy-login-button-${websiteData.site_id}" data-clipboard-target="#login-output-${websiteData.site_id}" >
             <img src="./assets/copyClipboard@33.33x.png" class="copiedToClipboard">
           </button>
          </div>
-        <div class="col credentials">
+        <div class="col-2 credentials">
           <output id="password-output-${websiteData.site_id}">${websiteData.password}</output>
           <button type="button" id="copy-password-button-${websiteData.site_id}" data-clipboard-target="#password-output-${websiteData.site_id}" class="clipboard-button" >
             <img src="./assets/copyClipboard@33.33x.png" class="copiedToClipboard">
           </button>
         </div>
-        <div id="category-${websiteData.site_id}" class="col credentials">${websiteData.category}</div>
-        <div class="col credentials"><input type="hidden" id="websiteId" name="websiteId" value="${websiteData.site_id}" />
+        <div id="category-${websiteData.site_id}" class="col-2 credentials">${websiteData.category}</div>
+        <div class="col-1 credentials"><input type="hidden" id="websiteId" name="websiteId" value="${websiteData.site_id}" />
         <button type="button" class="btn btn-info" onClick="createEdit(${websiteData.site_id})" ><img src="./assets/edit-icon.png"></button></div>
-        <div class="col credentials"><button type="button" class="btn btn-danger" onClick="deleteWebsite(${websiteData.site_id})" id="website-${websiteData.site_id}" ><img src="./assets/delete-icon.png"></button></div>
+        <div class="col-1 credentials"><button type="button" class="btn btn-danger" onClick="deleteWebsite(${websiteData.site_id})" id="website-${websiteData.site_id}" ><img src="./assets/delete-icon.png"></button></div>
       </div>`;
 
     return website

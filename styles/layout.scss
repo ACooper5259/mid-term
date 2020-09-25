@@ -153,14 +153,14 @@ header {
 
 .credentials{
   text-align: center;
-  padding: 30px;
+  padding: 25px 0 10px 0;
   font-size: 16px;
   word-wrap: break-word;
 }
 
 .cred-columns{
   text-align: center;
-  padding: 30px;
+  padding: 20px 0 20px 0;
   opacity: 0.8;
 
 }
@@ -170,12 +170,13 @@ header {
     color: $primary-blue;
     font-family: $text-font;
     font-size: 18px;
-    margin: auto;
+    // margin: auto;
     background-color: #ffffff;
     justify-content: center;
     border-top: solid;
     border-left: solid;
     border-right: solid;
+    width: 98%;
 }
 
 .websites-display {
@@ -183,10 +184,11 @@ header {
   color: $primary-blue;
   font-family: $text-font;
   font-size: 18px;
-  margin: auto;
+  // margin: auto;
   background-color: #ffffff;
   justify-content: center;
   border: solid;
+  width: 98%;
 }
 
 #credentials-title {
