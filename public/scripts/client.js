@@ -61,6 +61,7 @@ $(document).ready(function () {
   const createWebsiteElement = function (websiteData) {
     const website =`
       <div class="row row-cols-6">
+        <div class="col credentials">${websiteData.email}</div>
         <div class="col credentials"><a id="url-${websiteData.site_id}" href="http://${websiteData.url}">${websiteData.url}</a></div>
         <div class="col credentials">
           <output id="login-output-${websiteData.site_id}">${websiteData.loginname}</output>
