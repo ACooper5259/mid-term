@@ -14,9 +14,9 @@ Password keeper was a mid-term project, created over the course of 6 days by Aud
 - PG 6.x
 
 ## Final Product
-!["Screenshot of Login Page"](L)
-!["Screenshot of Main Page"]()
-!["Screenshot of Add new information"]()
+!["Screenshot of Login Page"](https://github.com/ACooper5259/mid-term/blob/master/docs/Login_Page.png)
+!["Screenshot of Main Page"](https://github.com/ACooper5259/mid-term/blob/master/docs/Main_Page.png)
+!["Screenshot of Add new information"](https://github.com/ACooper5259/mid-term/blob/master/docs/Add_New_Information.png)
 
 ## Getting Started
 
