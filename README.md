@@ -12,3 +12,25 @@ Password keeper was a mid-term project, created over the course of 6 days by Aud
 - Node 10.x or above
 - NPM 5.x or above
 - PG 6.x
+
+## Final Product
+!["Screenshot of Login Page"](L)
+!["Screenshot of Main Page"]()
+!["Screenshot of Add new information"]()
+
+## Getting Started
+
+1. Fork this repository, then clone your fork of this repository.
+2. Install dependencies using the `npm install` command.
+5. Start the web client using the `npm start` command. The app will be served at <http://localhost:8080/>.
+7. Go to <http://localhost:8080/> in your browser.
+
+## Setup
+
+Install dependencies with `npm install`.
+
+## Running Webpack Development Server
+
+```sh
+npm start
+```
